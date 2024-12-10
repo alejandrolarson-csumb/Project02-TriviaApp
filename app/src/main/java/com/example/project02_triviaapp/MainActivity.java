@@ -1,6 +1,9 @@
 package com.example.project02_triviaapp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +22,12 @@ public class MainActivity extends AppCompatActivity {
     private int loggedInUserId = -1;
     private User user;
 
+    public static Intent MainActivityIntentFactory(Context context, int userId) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
+        return intent;
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +35,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         repository = TriviaRepository.getRepository(getApplication());
+
+        binding.testingGoToLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
+            }
+        });
 
     }
 }
