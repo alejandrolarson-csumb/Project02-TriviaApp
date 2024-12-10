@@ -7,9 +7,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.example.project02_triviaapp.MainActivity;
 import com.example.project02_triviaapp.database.entities.Category;
-import com.example.project02_triviaapp.database.entities.User;
 
 import java.util.List;
 
@@ -27,7 +25,7 @@ public interface CategoryDAO {
     @Query("SELECT * FROM " + TriviaDatabase.CATEGORY_TABLE)
     LiveData<List<Category>> getAllCategories();
 
-    @Query("SELECT * FROM " + TriviaDatabase.CATEGORY_TABLE + " WHERE categoryText = :categoryText")
-    LiveData<Category> getCategoryByCategoryText(String categoryText);
+    @Query("SELECT * FROM " + TriviaDatabase.CATEGORY_TABLE + " WHERE categoryText = :category")
+    LiveData<Category> getCategoryByCategoryText(String category);
 
 }

@@ -2,7 +2,6 @@ package com.example.project02_triviaapp.database.entities;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.util.Objects;
@@ -13,8 +12,8 @@ public class Category {
     private int categoryId;
     private String categoryText;
 
-    public Category(@NonNull String category) {
-        this.categoryText = category;
+    public Category(@NonNull String categoryText) {
+        this.categoryText = categoryText;
     }
 
     @Override

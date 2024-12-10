@@ -15,10 +15,14 @@ import java.util.concurrent.Future;
 
 public class TriviaRepository {
     private final UserDAO userDAO;
+    private final CategoryDAO categoryDAO;
+    private final QuestionDAO questionDAO;
     private static TriviaRepository repository;
     private TriviaRepository(Application application) {
         TriviaDatabase db = TriviaDatabase.getDatabase(application);
         this.userDAO = db.userDAO();
+        this.categoryDAO = db.categoryDAO();
+        this.questionDAO = db.questionDAO();
     }
 
     public static TriviaRepository getRepository(Application application) {

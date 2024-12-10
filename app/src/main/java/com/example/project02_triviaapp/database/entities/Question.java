@@ -1,6 +1,5 @@
 package com.example.project02_triviaapp.database.entities;
 
-import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
