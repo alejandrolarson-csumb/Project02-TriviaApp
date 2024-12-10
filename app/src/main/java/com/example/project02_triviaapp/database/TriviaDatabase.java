@@ -18,7 +18,10 @@ import java.util.concurrent.Executors;
 @Database(entities = {User.class}, version = 1, exportSchema = false)
 public abstract class TriviaDatabase extends RoomDatabase {
 
-    public static final String USER_TABLE = "user_table" ;
+    public static final String USER_TABLE = "user_table";
+    public static final String CATEGORY_TABLE = "category_table";
+    public static final String QUESTION_TABLE = "question_table";
+
     private static final String DATABASE_NAME = "trivia_database";
     public abstract UserDAO userDAO();
     private static volatile TriviaDatabase INSTANCE;
