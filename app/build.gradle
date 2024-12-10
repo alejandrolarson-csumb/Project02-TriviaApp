@@ -26,9 +26,22 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
+
+    def room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+
+    // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-viewmodel:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-livedata:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.3.1"
 
     implementation libs.appcompat
     implementation libs.material
