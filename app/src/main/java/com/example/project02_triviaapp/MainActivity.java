@@ -3,6 +3,7 @@ package com.example.project02_triviaapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +35,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         repository = TriviaRepository.getRepository(getApplication());
+
+        binding.testingGoToLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
+            }
+        });
 
     }
 }
