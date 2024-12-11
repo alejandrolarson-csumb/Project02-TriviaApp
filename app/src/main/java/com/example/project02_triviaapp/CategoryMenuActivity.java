@@ -11,11 +11,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.project02_triviaapp.database.entities.Category;
 import com.example.project02_triviaapp.databinding.ActivityCategoryMenuBinding;
 
 public class CategoryMenuActivity extends AppCompatActivity {
 
     ActivityCategoryMenuBinding binding;
+
+    private Category category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +30,18 @@ public class CategoryMenuActivity extends AppCompatActivity {
         binding.backButtonCategoryMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext()));
+                //startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext()));
             }
         });
+
+        binding.selectMusicCategoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext());
+                startActivity(intent);
+            }
+        });
+
     }
 
     public static Intent categoryIntentFactory(Context context) {

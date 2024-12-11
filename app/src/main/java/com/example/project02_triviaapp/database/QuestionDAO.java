@@ -21,4 +21,8 @@ public interface QuestionDAO {
 
     @Query("SELECT * FROM " + TriviaDatabase.QUESTION_TABLE + " WHERE categoryOwnerId = :categoryId")
     LiveData<List<Question>> getQuestionsForCategory(int categoryId);
+
+/**
+    @Query(" SELECT * FROM " + TriviaDatabase.QUESTION_TABLE + " WHERE questionId = questionId")
+    LiveData<Question> getQuestionId(int questionId); */
 }
