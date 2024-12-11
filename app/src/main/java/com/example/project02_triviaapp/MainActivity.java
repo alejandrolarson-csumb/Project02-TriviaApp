@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        invalidateOptionsMenu();
 
         repository = TriviaRepository.getRepository(getApplication());
         loginUser(savedInstanceState);
@@ -52,11 +52,14 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = LoginActivity.loginIntentFactory(getApplicationContext());
             startActivity(intent);
         }
+
         updateSharedPreference();
 
-        binding.isAdminButton.setOnClickListener(new View.OnClickListener() {
+        //TODO: Rebind this button to gameplay activity
+        binding.playNowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(TAG, "User's username at onCreate is: " + user);
                 startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
             }
         });
@@ -81,8 +84,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem item = menu.findItem(R.id.logout_menu);
         item.setVisible(true);
-        //TODO:Figure out why line below is appearing as null
-        //item.setTitle(user.getUsername());
+        if (user == null) {
+            return false;
+        }
+        item.setTitle(user.getUsername());
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem item) {
