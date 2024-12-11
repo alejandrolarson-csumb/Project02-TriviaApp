@@ -70,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public static Intent mainActivityIntentFactory(Context context) {
+        return new Intent(context, MainActivity.class);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
