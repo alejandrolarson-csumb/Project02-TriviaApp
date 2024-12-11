@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameplayActivity">
+
+    <TextView
+        android:id="@+id/questionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="10dp"
+        android:text="Question will go here. Can be changed in code."
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/answerASelectButton"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:text="Temp A"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/questionTextView" />
+
+    <Button
+        android:id="@+id/answerBSelectButton"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:text="Temp B"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/answerASelectButton" />
+
+    <Button
+        android:id="@+id/answerCSelectButton"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:text="Temp C"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/answerBSelectButton" />
+
+    <Button
+        android:id="@+id/answerDSelectButton"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:text="Temp D"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/answerCSelectButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

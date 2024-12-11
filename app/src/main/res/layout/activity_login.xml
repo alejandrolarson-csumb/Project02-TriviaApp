@@ -14,7 +14,7 @@
         android:layout_margin="16dip"
         android:layout_marginBottom="20dip"
         android:gravity="center"
-        android:text="Welcome to Trivia App"
+        android:text="Welcome to \nTrivia Night!"
         android:textSize="42sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
