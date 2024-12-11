@@ -12,12 +12,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.project02_triviaapp.MainActivity;
 import com.example.project02_triviaapp.database.entities.Category;
 import com.example.project02_triviaapp.database.entities.Question;
+import com.example.project02_triviaapp.database.entities.Scores;
 import com.example.project02_triviaapp.database.entities.User;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Category.class, Question.class}, version = 3, exportSchema = false)
+@Database(entities = {User.class, Category.class, Question.class, Scores.class}, version = 3, exportSchema = false)
 public abstract class TriviaDatabase extends RoomDatabase {
 
     public static final String USER_TABLE = "user_table";
@@ -70,7 +71,7 @@ public abstract class TriviaDatabase extends RoomDatabase {
                 admin.setAdmin(true);
                 dao.insert(admin);
                 User testUser1 = new User("testuser1", "testuser1");
-                dao.insert(testUser1);
+                long testUserId = dao.insert(testUser1);
 
                 // Insert Category
                 Category moviesCategory = new Category("movies");
@@ -101,6 +102,8 @@ public abstract class TriviaDatabase extends RoomDatabase {
                         "The Spanish Flu,Smallpox,The HIV/AIDS pandemic");
                 questDao.insert(question);
 
+                Scores scores = new Scores(testUserId, moviesID, 10);
+                scoresDao.insert(scores);
 
 
 

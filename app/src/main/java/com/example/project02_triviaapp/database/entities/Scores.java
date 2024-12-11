@@ -5,66 +5,74 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.util.Objects;
+
 /*import java.util.Date;*/
 
 @Entity(tableName = "scores_table",
         foreignKeys = {
                 @ForeignKey(entity = User.class,
-                        parentColumns = "userId",
-                        childColumns = "userId",
+                        parentColumns = "userid",
+                        childColumns = "userOwnerId",
                         onDelete = ForeignKey.CASCADE),
                 @ForeignKey(entity = Category.class,
                         parentColumns = "categoryId",
-                        childColumns = "categoryId",
+                        childColumns = "categoryOwnerId",
                         onDelete = ForeignKey.CASCADE)
         })
 public class Scores {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "scoreId")
-    private long scoreId;
-
-    @ColumnInfo(name = "userId")
-    private long userId;
-
-    @ColumnInfo(name = "categoryId")
-    private long categoryId;
-
-    @ColumnInfo(name = "score")
+    private int scoreId;
+    private long userOwnerId;
+    private long categoryOwnerId;
     private int score;
 
     /*@ColumnInfo(name = "date")
     private Date date;*/
 
-    public Scores(long userId, long categoryId, int score) {
-        this.userId = userId;
-        this.categoryId = categoryId;
+    public Scores(long userOwnerId, long categoryOwnerId, int score) {
+        this.userOwnerId = userOwnerId;
+        this.categoryOwnerId = categoryOwnerId;
         this.score = score;
         /*this.date = date;*/
     }
 
-    public long getScoreId() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Scores scores = (Scores) o;
+        return scoreId == scores.scoreId && userOwnerId == scores.userOwnerId && categoryOwnerId == scores.categoryOwnerId && score == scores.score;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(scoreId, userOwnerId, categoryOwnerId, score);
+    }
+
+    public int getScoreId() {
         return scoreId;
     }
 
-    public void setScoreId(long scoreId) {
+    public void setScoreId(int scoreId) {
         this.scoreId = scoreId;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getUserOwnerId() {
+        return userOwnerId;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUserOwnerId(long userOwnerId) {
+        this.userOwnerId = userOwnerId;
     }
 
-    public long getCategoryId() {
-        return categoryId;
+    public long getCategoryOwnerId() {
+        return categoryOwnerId;
     }
 
-    public void setCategoryId(long categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryOwnerId(long categoryOwnerId) {
+        this.categoryOwnerId = categoryOwnerId;
     }
 
     public int getScore() {
@@ -74,13 +82,4 @@ public class Scores {
     public void setScore(int score) {
         this.score = score;
     }
-
-    /*public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }*/
-
 }
