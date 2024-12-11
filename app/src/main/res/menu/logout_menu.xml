@@ -2,5 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/logout_menu"
+        android:title="LOGGED_IN"
+        app:showAsAction="ifRoom"
+        />
 
 </menu>
