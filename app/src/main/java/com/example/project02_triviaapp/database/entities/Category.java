@@ -9,19 +9,11 @@ import java.util.Objects;
 @Entity(tableName = "category_table")
 public class Category {
     @PrimaryKey(autoGenerate = true)
-    private int categoryid;
-    private String categoryName;
+    private long categoryId;
+    private String categoryText;
 
-    public Category(@NonNull String categoryName){
-        this.categoryName = categoryName;
-    }
-
-    public int getCategoryid() {
-        return categoryid;
-    }
-
-    public void setCategoryid(int categoryid) {
-        this.categoryid = categoryid;
+    public Category(@NonNull String categoryText) {
+        this.categoryText = categoryText;
     }
 
     @Override
@@ -29,19 +21,27 @@ public class Category {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Category category = (Category) o;
-        return categoryid == category.categoryid && Objects.equals(categoryName, category.categoryName);
+        return categoryId == category.categoryId && Objects.equals(categoryText, category.categoryText);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(categoryid, categoryName);
+        return Objects.hash(categoryId, categoryText);
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getCategoryText() {
+        return categoryText;
+    }
+
+    public void setCategoryText(String categoryText) {
+        this.categoryText = categoryText;
     }
 }
