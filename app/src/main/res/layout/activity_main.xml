@@ -50,7 +50,7 @@
         android:id="@+id/isAdminButton"
         android:layout_width="275dp"
         android:layout_height="125dp"
-        android:text="Admin Only"
+        android:text="Admin Actions"
         android:textSize="36sp"
         android:gravity="center"
         android:layout_marginTop="20dp"

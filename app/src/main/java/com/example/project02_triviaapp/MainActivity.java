@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private int LOGGED_OUT = -1;
     private User user;
 
-    //TODO: If logged in user is Admin, set visibility of Admin button to visible
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         repository = TriviaRepository.getRepository(getApplication());
         loginUser(savedInstanceState);
 
+
         if (loggedInUserId == -1) {
             Intent intent = LoginActivity.loginIntentFactory(getApplicationContext());
             startActivity(intent);
@@ -55,12 +54,10 @@ public class MainActivity extends AppCompatActivity {
 
         updateSharedPreference();
 
-        //TODO: Rebind this button to gameplay activity
         binding.playNowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "User's username at onCreate is: " + user);
-                startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
+                startActivity(CategoryMenuActivity.categoryIntentFactory(getApplicationContext()));
             }
         });
 
@@ -88,10 +85,12 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
         item.setTitle(user.getUsername());
+        if(user.getUsername().equals("admin1")){
+            binding.isAdminButton.setVisibility(View.VISIBLE);
+        }
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem item) {
-                Toast.makeText(MainActivity.this, "Logout to be implemented", Toast.LENGTH_SHORT).show();
                 showLogoutDialog();
                 return false;
             }
