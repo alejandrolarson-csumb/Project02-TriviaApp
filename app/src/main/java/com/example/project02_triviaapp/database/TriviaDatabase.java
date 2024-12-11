@@ -84,6 +84,20 @@ public abstract class TriviaDatabase extends RoomDatabase {
                         "Shrek,Despicable Me,Dinosaur");
                 questDao.insert(question);
 
+                //Initializing all Questions for History
+                question = new Question(historyID,
+                        "What was Walt Disney’s plan for EPCOT before his death?",
+                        "A prototype futuristic city",
+                        "Another theme park,Another movie studio,A farm");
+                questDao.insert(question);
+                question = new Question(historyID,
+                        "What was the deadliest disease in history so far?",
+                        "The Black Plague",
+                        "The Spanish Flu,Smallpox,The HIV/AIDS pandemic");
+                questDao.insert(question);
+
+
+
 
 
 
