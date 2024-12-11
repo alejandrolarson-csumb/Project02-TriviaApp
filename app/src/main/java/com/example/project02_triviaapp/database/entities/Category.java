@@ -9,7 +9,7 @@ import java.util.Objects;
 @Entity(tableName = "category_table")
 public class Category {
     @PrimaryKey(autoGenerate = true)
-    private int categoryId;
+    private long categoryId;
     private String categoryText;
 
     public Category(@NonNull String categoryText) {
@@ -29,11 +29,11 @@ public class Category {
         return Objects.hash(categoryId, categoryText);
     }
 
-    public int getCategoryId() {
+    public long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(long categoryId) {
         this.categoryId = categoryId;
     }
 

@@ -15,7 +15,7 @@ import java.util.List;
 public interface CategoryDAO {
     // TODO: might want to check this conflict strategy
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Category... category);
+    long insert(Category category);
 
     @Delete
     void delete(Category category);

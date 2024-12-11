@@ -56,6 +56,8 @@ public abstract class TriviaDatabase extends RoomDatabase {
             Log.i(MainActivity.TAG, "DATABASE CREATED!");
             databaseWriteExecutor.execute(() -> {
                 UserDAO dao = INSTANCE.userDAO();
+                CategoryDAO catDao = INSTANCE.categoryDAO();
+                QuestionDAO questDao = INSTANCE.questionDAO();
                 // TODO: may not want to delete all in the future
                 dao.deleteAll();
                 //Insert users for testing purposes
@@ -64,17 +66,24 @@ public abstract class TriviaDatabase extends RoomDatabase {
                 dao.insert(admin);
                 User testUser1 = new User("testuser1", "testuser1");
                 dao.insert(testUser1);
+
                 // Insert Category
-                CategoryDAO catDao = INSTANCE.categoryDAO();
                 Category moviesCategory = new Category("movies");
-                catDao.insert(moviesCategory);
-                // Insert question for this category
-                QuestionDAO questDao = INSTANCE.questionDAO();
-                Question question1 = new Question(moviesCategory.getCategoryId()
-                        ,"Who played Rick Deckard in the film Blade Runner?"
-                        , "Harrison Ford", "Tom Cruise,David Duchovny," +
-                        "Kurt Russell");
-                questDao.insert(question1);
+                Category historyCategory = new Category("history");
+                long moviesID = catDao.insert(moviesCategory);
+                long historyID = catDao.insert(historyCategory);
+
+                // Initializing all questions for Movies
+                Question question = new Question(moviesID,
+                        "Who played Rick Deckard in the film Blade Runner?",
+                        "Harrison Ford",
+                        "Tom Cruise,David Duchovny,Kurt Russell");
+                questDao.insert(question);
+                question = new Question(moviesID,"What was the first computer animated film?",
+                        "Toy Story",
+                        "Shrek,Despicable Me,Dinosaur");
+                questDao.insert(question);
+
 
 
 

@@ -17,12 +17,12 @@ import java.util.Objects;
 public class Question {
     @PrimaryKey(autoGenerate = true)
     private int questionId;
-    private int categoryOwnerId; //foreign key
+    private long categoryOwnerId; //foreign key
     private String questionText;
     private String correctAnswer;
     private String badAnswers; // takes form "badAnswer1,badAnswer2,badAnswer3"
 
-    public Question(int categoryOwnerId, String questionText,
+    public Question(long categoryOwnerId, String questionText,
                     String correctAnswer, String badAnswers) {
         this.categoryOwnerId = categoryOwnerId;
         this.questionText = questionText;
@@ -53,11 +53,11 @@ public class Question {
         this.questionId = questionId;
     }
 
-    public int getCategoryOwnerId() {
+    public long getCategoryOwnerId() {
         return categoryOwnerId;
     }
 
-    public void setCategoryOwnerId(int categoryOwnerId) {
+    public void setCategoryOwnerId(long categoryOwnerId) {
         this.categoryOwnerId = categoryOwnerId;
     }
 
