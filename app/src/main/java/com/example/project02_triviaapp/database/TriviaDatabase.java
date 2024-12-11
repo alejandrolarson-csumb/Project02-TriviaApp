@@ -17,17 +17,20 @@ import com.example.project02_triviaapp.database.entities.User;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Category.class, Question.class}, version = 2, exportSchema = false)
+@Database(entities = {User.class, Category.class, Question.class}, version = 3, exportSchema = false)
 public abstract class TriviaDatabase extends RoomDatabase {
 
     public static final String USER_TABLE = "user_table";
     public static final String CATEGORY_TABLE = "category_table";
     public static final String QUESTION_TABLE = "question_table";
+    public static final String SCORES_TABLE = "scores_table";
+
 
     private static final String DATABASE_NAME = "trivia_database";
     public abstract UserDAO userDAO();
     public abstract CategoryDAO categoryDAO();
     public abstract QuestionDAO questionDAO();
+    public abstract ScoresDAO scoresDAO();
     private static volatile TriviaDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
 
@@ -58,6 +61,8 @@ public abstract class TriviaDatabase extends RoomDatabase {
                 UserDAO dao = INSTANCE.userDAO();
                 CategoryDAO catDao = INSTANCE.categoryDAO();
                 QuestionDAO questDao = INSTANCE.questionDAO();
+                ScoresDAO scoresDao = INSTANCE.scoresDAO();
+
                 // TODO: may not want to delete all in the future
                 dao.deleteAll();
                 //Insert users for testing purposes
