@@ -3,6 +3,7 @@ package com.example.project02_triviaapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,6 +21,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private TriviaRepository repository;
 
+    private MainActivity mainActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         repository = TriviaRepository.getRepository(getApplication());
+
 
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,8 +77,12 @@ public class LoginActivity extends AppCompatActivity {
         LiveData<User> userObserver = repository.getUserByUserName(username);
         userObserver.observe(this, user -> {
             if(user != null){
+                Log.i(MainActivity.TAG, "What is the user's username " + user.getUsername());
                 String password = binding.passwordLoginEditText.getText().toString();
+                Log.i(MainActivity.TAG, "What is the user's password " + user.getPassword());
                 if(password.equals(user.getPassword())){
+                    Log.i(MainActivity.TAG, "The Login Process was completed in verifyUser() " + user.getUserid());
+                    //startActivity(MainActivity.MainActivityIntentFactory(getApplicationContext(), user.getUserid()));
                     startActivity(MainActivity.MainActivityIntentFactory(getApplicationContext(), user.getUserid()));
                 } else {
                     toastMaker("Invalid password.");

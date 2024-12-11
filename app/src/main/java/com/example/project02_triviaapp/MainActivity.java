@@ -31,10 +31,18 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "DAC_TRIVIALOG";
     private ActivityMainBinding binding;
     private TriviaRepository repository;
-    private int loggedInUserId = -1;
+    //Changed from private to public
+    public int loggedInUserId = -1;
     private int LOGGED_OUT = -1;
     private User user;
 
+    public int getLoggedInUserId() {
+        return loggedInUserId;
+    }
+
+    public void setLoggedInUserId(int loggedInUserId) {
+        this.loggedInUserId = loggedInUserId;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +54,12 @@ public class MainActivity extends AppCompatActivity {
         repository = TriviaRepository.getRepository(getApplication());
         loginUser(savedInstanceState);
 
-
+        /**
         if (loggedInUserId == -1) {
+            Log.i(TAG, "loggedInUserId == -1");
             Intent intent = LoginActivity.loginIntentFactory(getApplicationContext());
             startActivity(intent);
-        }
+        }*/
 
         updateSharedPreference();
 
@@ -65,14 +74,16 @@ public class MainActivity extends AppCompatActivity {
 
     public static Intent MainActivityIntentFactory(Context context, long userId) {
         Intent intent = new Intent(context, MainActivity.class);
+        Log.i(MainActivity.TAG, "What is the userid in mainactivityIntentFactory " + userId);
         intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
         return intent;
 
     }
 
+    /**
     public static Intent mainActivityIntentFactory(Context context) {
         return new Intent(context, MainActivity.class);
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -127,7 +138,9 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
+        //Not Updating after user login
         loggedInUserId = sharedPreferences.getInt(getString(R.string.preference_userid_key), LOGGED_OUT);
+        Log.i(TAG, "User id in loginUser " + loggedInUserId);
 
         if (loggedInUserId == LOGGED_OUT & savedInstanceState != null) {
             loggedInUserId = savedInstanceState.getInt(SHARED_PREFERENCE_USERID_KEY, LOGGED_OUT);
