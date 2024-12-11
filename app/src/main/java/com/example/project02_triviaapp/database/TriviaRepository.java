@@ -17,12 +17,14 @@ public class TriviaRepository {
     private final UserDAO userDAO;
     private final CategoryDAO categoryDAO;
     private final QuestionDAO questionDAO;
+    private final ScoresDAO scoresDAO;
     private static TriviaRepository repository;
     private TriviaRepository(Application application) {
         TriviaDatabase db = TriviaDatabase.getDatabase(application);
         this.userDAO = db.userDAO();
         this.categoryDAO = db.categoryDAO();
         this.questionDAO = db.questionDAO();
+        this.scoresDAO = db.scoresDAO();
     }
 
     public static TriviaRepository getRepository(Application application) {
@@ -57,7 +59,7 @@ public class TriviaRepository {
         return userDAO.getUserByUserId(id);
     }
 
-    public void insert(User... user) {
+    public void insert(User user) {
         TriviaDatabase.databaseWriteExecutor.execute(() -> {
             userDAO.insert(user);
         });
