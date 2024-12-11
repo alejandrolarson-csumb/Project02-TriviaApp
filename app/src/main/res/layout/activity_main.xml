@@ -57,6 +57,7 @@
         app:layout_constraintTop_toBottomOf="@id/viewHighScoresButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:visibility="invisible"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
