@@ -5,12 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".CategoryMenuActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to Trivia Night!"
+        android:text="Choose a Category!"
         android:textSize="48dp"
         android:gravity="center"
         android:layout_margin="90dp"
@@ -21,10 +21,10 @@
 
 
     <Button
-        android:id="@+id/playNowButton"
+        android:id="@+id/selectMusicCategoryButton"
         android:layout_width="275dp"
         android:layout_height="125dp"
-        android:text="Play Now!"
+        android:text="Music"
         android:textSize="36sp"
         android:layout_marginTop="250dp"
         android:gravity="center"
@@ -34,27 +34,27 @@
         />
 
     <Button
-        android:id="@+id/viewHighScoresButton"
+        android:id="@+id/selectHistoryCategoryButton"
         android:layout_width="275dp"
         android:layout_height="125dp"
-        android:text="High Scores"
+        android:text="History"
         android:textSize="36sp"
         android:gravity="center"
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/playNowButton"
+        app:layout_constraintTop_toBottomOf="@id/selectMusicCategoryButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
 
     <Button
-        android:id="@+id/isAdminButton"
+        android:id="@+id/moreCategoriesSoonButton"
         android:layout_width="275dp"
         android:layout_height="125dp"
-        android:text="Admin Only"
-        android:textSize="36sp"
+        android:text="More Coming Soon..."
+        android:textSize="32sp"
         android:gravity="center"
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/viewHighScoresButton"
+        app:layout_constraintTop_toBottomOf="@id/selectHistoryCategoryButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />

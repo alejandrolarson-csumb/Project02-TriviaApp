@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         repository = TriviaRepository.getRepository(getApplication());
 
-        binding.testingGoToLoginButton.setOnClickListener(new View.OnClickListener() {
+        binding.isAdminButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
