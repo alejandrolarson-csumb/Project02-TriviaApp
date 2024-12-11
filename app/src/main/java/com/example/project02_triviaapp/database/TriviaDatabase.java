@@ -12,22 +12,26 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.project02_triviaapp.MainActivity;
 import com.example.project02_triviaapp.database.entities.Category;
 import com.example.project02_triviaapp.database.entities.Question;
+import com.example.project02_triviaapp.database.entities.Scores;
 import com.example.project02_triviaapp.database.entities.User;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Category.class, Question.class}, version = 2, exportSchema = false)
+@Database(entities = {User.class, Category.class, Question.class, Scores.class}, version = 3, exportSchema = false)
 public abstract class TriviaDatabase extends RoomDatabase {
 
     public static final String USER_TABLE = "user_table";
     public static final String CATEGORY_TABLE = "category_table";
     public static final String QUESTION_TABLE = "question_table";
+    public static final String SCORES_TABLE = "scores_table";
+
 
     private static final String DATABASE_NAME = "trivia_database";
     public abstract UserDAO userDAO();
     public abstract CategoryDAO categoryDAO();
     public abstract QuestionDAO questionDAO();
+    public abstract ScoresDAO scoresDAO();
     private static volatile TriviaDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
 
@@ -58,6 +62,8 @@ public abstract class TriviaDatabase extends RoomDatabase {
                 UserDAO dao = INSTANCE.userDAO();
                 CategoryDAO catDao = INSTANCE.categoryDAO();
                 QuestionDAO questDao = INSTANCE.questionDAO();
+                ScoresDAO scoresDao = INSTANCE.scoresDAO();
+
                 // TODO: may not want to delete all in the future
                 dao.deleteAll();
                 //Insert users for testing purposes
@@ -65,7 +71,7 @@ public abstract class TriviaDatabase extends RoomDatabase {
                 admin.setAdmin(true);
                 dao.insert(admin);
                 User testUser1 = new User("testuser1", "testuser1");
-                dao.insert(testUser1);
+                long testUserId = dao.insert(testUser1);
 
                 // Insert Category
                 Category moviesCategory = new Category("movies");
@@ -96,6 +102,8 @@ public abstract class TriviaDatabase extends RoomDatabase {
                         "The Spanish Flu,Smallpox,The HIV/AIDS pandemic");
                 questDao.insert(question);
 
+                Scores scores = new Scores(testUserId, moviesID, 10);
+                scoresDao.insert(scores);
 
 
 

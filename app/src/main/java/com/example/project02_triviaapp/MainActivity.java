@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static Intent MainActivityIntentFactory(Context context, int userId) {
+    public static Intent MainActivityIntentFactory(Context context, long userId) {
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
         return intent;
