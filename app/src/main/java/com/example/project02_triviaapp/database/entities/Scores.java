@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
+/*import java.util.Date;*/
 
 @Entity(tableName = "scores_table",
         foreignKeys = {
@@ -33,14 +33,14 @@ public class Scores {
     @ColumnInfo(name = "score")
     private int score;
 
-    @ColumnInfo(name = "date")
-    private Date date;
+    /*@ColumnInfo(name = "date")
+    private Date date;*/
 
     public Scores(long userId, long categoryId, int score) {
         this.userId = userId;
         this.categoryId = categoryId;
         this.score = score;
-        this.date = date;
+        /*this.date = date;*/
     }
 
     public long getScoreId() {
@@ -75,12 +75,12 @@ public class Scores {
         this.score = score;
     }
 
-    public Date getDate() {
+    /*public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
-    }
+    }*/
 
 }
