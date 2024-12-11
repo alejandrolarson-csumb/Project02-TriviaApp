@@ -10,17 +10,21 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.project02_triviaapp.MainActivity;
+import com.example.project02_triviaapp.database.entities.Category;
 import com.example.project02_triviaapp.database.entities.User;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class, Category.class}, version = 2, exportSchema = false)
 public abstract class TriviaDatabase extends RoomDatabase {
 
     public static final String USER_TABLE = "user_table" ;
+
+    public static final String CATEGORY_TABLE = "category_table";
     private static final String DATABASE_NAME = "trivia_database";
     public abstract UserDAO userDAO();
+    public abstract CategoryDAO categoryDAO();
     private static volatile TriviaDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
 
@@ -57,6 +61,15 @@ public abstract class TriviaDatabase extends RoomDatabase {
                 User testUser1 = new User("testuser1", "testuser1");
                 dao.insert(testUser1);
                 Log.i(MainActivity.TAG, "testuser1 inserted");
+
+                CategoryDAO daoCategory = INSTANCE.categoryDAO();
+                Log.i(MainActivity.TAG, "category added");
+                Category movies = new Category("Movies");
+                daoCategory.insert(movies);
+                Log.i(MainActivity.TAG, "Movies category added");
+                Category history = new Category("History");
+                daoCategory.insert(history);
+                Log.i(MainActivity.TAG, "History category added");
             });
         }
     };
