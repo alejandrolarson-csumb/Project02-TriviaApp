@@ -16,6 +16,10 @@ import com.example.project02_triviaapp.databinding.ActivityGameplayBinding;
 import java.util.List;
 import java.util.Random;
 
+/**
+ *
+ */
+
 public class GameplayActivity extends AppCompatActivity {
     private static final String GAMEPLAY_ACTIVITY_CATEGORY_ID = "com.example.project02_triviaapp.GAMEPLAY_ACTIVITY_CATEGORY_ID";
     private static final String GAMEPLAY_ACTIVITY_QUESTION_ID = "com.example.project02_triviaapp.GAMEPLAY_ACTIVITY_QUESTION_ID";
@@ -45,7 +49,7 @@ public class GameplayActivity extends AppCompatActivity {
         score = fromAct.getIntExtra(GAMEPLAY_ACTIVITY_SCORE, 0);
 
         //Log.i(MainActivity.TAG, "GameplayActivity questionNum " + questionNum);
-        //Log.i(MainActivity.TAG, "GameplayActivity categoryId " + categoryId);
+        Log.i(MainActivity.TAG, "GameplayActivity categoryId " + categoryId);
 
         assert repository != null;
         LiveData<List<Question>> questionObserver = repository.getQuestionsForCategory(categoryId);
@@ -58,7 +62,6 @@ public class GameplayActivity extends AppCompatActivity {
 
             Question particularQuestion = questionsInList.get(questionNum);
 
-            //TODO: Implements an increase in score if answer is correct
             //TODO: Change to Scores Activity instead of Main Activity
             binding.answerASelectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -118,8 +121,8 @@ public class GameplayActivity extends AppCompatActivity {
     private void nextQuestion(List<Question> questionsInList) {
         questionNum += 1;
         if (questionNum == questionsInList.size()) {
-            Log.i(MainActivity.TAG, "Final score is: " + score);
-            Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
+            Log.i(MainActivity.TAG, "Final score is: " + score + " CategoryId " + categoryId);
+            Intent intent = ScoresActivity.scoresIntentFactory(getApplicationContext(), categoryId, score);
             startActivity(intent);
         } else {
             Intent intent = GameplayActivity.gameplayIntentFactory(getApplicationContext(), questionNum, categoryId, score);
@@ -133,7 +136,8 @@ public class GameplayActivity extends AppCompatActivity {
      * @param questionNum     The question number that the user is currently on
      * @author Shane Ritter
      * The method takes the question, correct answer, and incorrect answer from a Question object
-     * in the database and assigns them to their repective TextView and Buttons.
+     * in the database and assigns them to their repective TextView and Buttons. Answers are
+     * assigned to their buttons randomly.
      */
     private void createQuestionAnswers(List<Question> questionsInList, int questionNum) {
 
@@ -170,29 +174,29 @@ public class GameplayActivity extends AppCompatActivity {
             }
         }
 
-        String testAC1 = particularQuestion.getCorrectAnswer();
+        String correctAnswerFromTable = particularQuestion.getCorrectAnswer();
 
         switch (randomNum1) {
             case 1:
-                binding.answerASelectButton.setText(testAC1);
+                binding.answerASelectButton.setText(correctAnswerFromTable);
                 break;
 
             case 2:
-                binding.answerBSelectButton.setText(testAC1);
+                binding.answerBSelectButton.setText(correctAnswerFromTable);
                 break;
 
             case 3:
-                binding.answerCSelectButton.setText(testAC1);
+                binding.answerCSelectButton.setText(correctAnswerFromTable);
                 break;
 
             case 4:
-                binding.answerDSelectButton.setText(testAC1);
+                binding.answerDSelectButton.setText(correctAnswerFromTable);
                 break;
 
         }
 
-        String testAI = particularQuestion.getBadAnswers();
-        String[] incorrectAnswers = testAI.split(",");
+        String badAnswersFromTable = particularQuestion.getBadAnswers();
+        String[] incorrectAnswers = badAnswersFromTable.split(",");
 
         //Log.i(MainActivity.TAG, "GameplayActivity answer incorrect String 1 " + incorrectAnswers[0]);
         //Log.i(MainActivity.TAG, "GameplayActivity answer incorrect String 2 " + incorrectAnswers[1]);
@@ -259,9 +263,11 @@ public class GameplayActivity extends AppCompatActivity {
     /**
      * @param questionId The number question to go to in the category
      * @param categoryId The category number of the category selected
+     * @param score The current score the player has earned
      * @author Shane Ritter
-     * Method return an intent that includes the question to go to and the category to go to in
-     * the database.
+     * Method return an intent that includes the parameters questionId, categoryId, and score.
+     * These are saved as they are needed to identify the next question and keep track of the
+     * user's score.
      */
     public static Intent gameplayIntentFactory(Context context, int questionId, int categoryId, int score) {
         Intent intent = new Intent(context, GameplayActivity.class);

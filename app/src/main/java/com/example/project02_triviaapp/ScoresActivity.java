@@ -1,15 +1,19 @@
 package com.example.project02_triviaapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 import com.example.project02_triviaapp.database.TriviaDatabase;
+import com.example.project02_triviaapp.database.TriviaRepository;
 import com.example.project02_triviaapp.database.entities.Scores;
 import com.example.project02_triviaapp.database.ScoresDAO;
+import com.example.project02_triviaapp.databinding.ActivityScoresBinding;
 
 /**
  * @author Ben Shimek
@@ -23,8 +27,13 @@ import com.example.project02_triviaapp.database.ScoresDAO;
 
 public class ScoresActivity extends AppCompatActivity {
 
+    private static final String SCORES_ACTIVITY_CATEGORY_ID = "com.example.project02_triviaapp.SCORES_ACTIVITY_CATEGORY_ID";
+    private static final String SCORES_ACTIVITY_FINAL_SCORE = "com.example.project02_triviaapp.SCORES_ACTIVITY_FINAL_SCORE";
     private TextView finalScoreText;
     private Button returnToMainMenuButton;
+    private TriviaRepository repository;
+
+    ActivityScoresBinding binding;
 
     // variables to be passed from GameplayActivity
     private int finalScore;
@@ -43,17 +52,25 @@ public class ScoresActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scores);
+        binding = ActivityScoresBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         finalScoreText = findViewById(R.id.final_score_text);
         returnToMainMenuButton = findViewById(R.id.return_to_main_menu_button);
 
+        repository = TriviaRepository.getRepository(getApplication());
+
         // Get the data passed from GameActivity - NEEDS WORK!!
-        Intent intent = getIntent();
+        Intent fromAct = getIntent();
         // Will be passed from GameActivity to ScoresActivity
-        finalScore = intent.getIntExtra("final_score", 0);
-        userId = intent.getLongExtra("user_id", 0);
-        categoryId = intent.getLongExtra("category_id", 0);
+        finalScore = fromAct.getIntExtra(SCORES_ACTIVITY_FINAL_SCORE, 0);
+        userId = fromAct.getLongExtra("user_id", 0);
+        //categoryId = fromAct.getLongExtra("category_id", 0);
+        categoryId = fromAct.getIntExtra(SCORES_ACTIVITY_CATEGORY_ID, 0);
+
+        Log.i(MainActivity.TAG, "userId in ScoresActivity: " + userId);
+        Log.i(MainActivity.TAG, "categoryId in ScoresActivity: " + categoryId);
+        Log.i(MainActivity.TAG, "finalScore in ScoresActivity: " + finalScore);
 
         finalScoreText.setText("Final Score: " + finalScore); // Display the final score
 
@@ -85,6 +102,7 @@ public class ScoresActivity extends AppCompatActivity {
 
         ScoresDAO scoresDAO = db.scoresDAO(); // Get the DAO for Scores
 
+
         Scores scores = new Scores(userId, categoryId, finalScore);  // Create a new Score object
 
         // Insert the score into the database in a background thread
@@ -102,5 +120,14 @@ public class ScoresActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }*/ //Do we need to make this a method?
+
+    public static Intent scoresIntentFactory(Context context, int categoryId, int finalScore){
+        Log.i(MainActivity.TAG, "scoresIntentFactory score: " + finalScore);
+        Intent intent = new Intent(context, ScoresActivity.class);
+        intent.putExtra(SCORES_ACTIVITY_CATEGORY_ID, categoryId);
+        intent.putExtra(SCORES_ACTIVITY_FINAL_SCORE, finalScore);
+        return intent;
+    }
+
 
 }

@@ -10,6 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.project02_triviaapp.database.entities.Category;
 import com.example.project02_triviaapp.databinding.ActivityCategoryMenuBinding;
 
+/**
+ *
+ */
+
 public class CategoryMenuActivity extends AppCompatActivity {
 
     ActivityCategoryMenuBinding binding;
@@ -22,7 +26,6 @@ public class CategoryMenuActivity extends AppCompatActivity {
         binding = ActivityCategoryMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //TODO:Back Button Not Currently Working
         binding.backButtonCategoryMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
