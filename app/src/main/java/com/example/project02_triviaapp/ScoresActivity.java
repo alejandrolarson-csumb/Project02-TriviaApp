@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ScoresActivity extends AppCompatActivity {
 
     private TextView finalScoreText;
-    private Button returnToMainMenu;
+    private Button returnToMainMenuButton;
 
     // variables to be passed from GameplayActivity
     private int finalScore;
@@ -22,7 +22,7 @@ public class ScoresActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scores);
 
         finalScoreText = findViewById(R.id.final_score_text);
-        submitScoreButton = findViewById(R.id.submit_score_button);
+        returnToMainMenuButton = findViewById(R.id.return_to_main_menu_button);
 
         // Get the data passed from GameActivity
         Intent intent = getIntent();
