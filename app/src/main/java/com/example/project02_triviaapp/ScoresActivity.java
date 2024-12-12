@@ -29,7 +29,7 @@ public class ScoresActivity extends AppCompatActivity {
         finalScoreText = findViewById(R.id.final_score_text);
         returnToMainMenuButton = findViewById(R.id.return_to_main_menu_button);
 
-        // Get the data passed from GameActivity
+        // Get the data passed from GameActivity - NEEDS WORK!!
         Intent intent = getIntent();
         // Will be passed form GameActivity to ScoresActivity
         finalScore = intent.getIntExtra("final_score", 0);
@@ -47,8 +47,11 @@ public class ScoresActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent2 = new Intent(ScoresActivity.this, MainActivity.class);
                 startActivity(intent2);
+                finish();
             }
         });
+
+        /*returnToMainMenuButton.setOnClickListener(v -> returnToMainMenu());*/ // Use this instead?
     }
 
     private void saveScoreToDatabase() {
@@ -67,5 +70,12 @@ public class ScoresActivity extends AppCompatActivity {
             });
         }).start();
     }
+
+    /*private void returnToMainMenu() {
+        // Create an Intent to go back to the Main Menu
+        Intent intent = new Intent(ScoresActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }*/ //Do we need to make this a method?
 
 }
