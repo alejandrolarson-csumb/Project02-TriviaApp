@@ -13,6 +13,7 @@ import com.example.project02_triviaapp.database.TriviaDatabase;
 import com.example.project02_triviaapp.database.TriviaRepository;
 import com.example.project02_triviaapp.database.entities.Scores;
 import com.example.project02_triviaapp.database.ScoresDAO;
+import com.example.project02_triviaapp.database.entities.User;
 import com.example.project02_triviaapp.databinding.ActivityScoresBinding;
 
 /**
@@ -32,6 +33,7 @@ public class ScoresActivity extends AppCompatActivity {
     private TextView finalScoreText;
     private Button returnToMainMenuButton;
     private TriviaRepository repository;
+    private User user;
 
     ActivityScoresBinding binding;
 
@@ -39,6 +41,7 @@ public class ScoresActivity extends AppCompatActivity {
     private int finalScore;
     private long userId;
     private long categoryId;
+
 
     /**
      * @author Ben Shimek
@@ -60,19 +63,24 @@ public class ScoresActivity extends AppCompatActivity {
 
         repository = TriviaRepository.getRepository(getApplication());
 
+        long userFromMain = MainActivity.loggedInUserId;
+
+        Log.i(MainActivity.TAG, "userFromMain equals: " + userFromMain);
+
+
         // Get the data passed from GameActivity - NEEDS WORK!!
         Intent fromAct = getIntent();
         // Will be passed from GameActivity to ScoresActivity
         finalScore = fromAct.getIntExtra(SCORES_ACTIVITY_FINAL_SCORE, 0);
-        userId = fromAct.getLongExtra("user_id", 0);
+        userId = fromAct.getLongExtra("user_id", userFromMain);
         //categoryId = fromAct.getLongExtra("category_id", 0);
         categoryId = fromAct.getIntExtra(SCORES_ACTIVITY_CATEGORY_ID, 0);
 
         Log.i(MainActivity.TAG, "userId in ScoresActivity: " + userId);
-        Log.i(MainActivity.TAG, "categoryId in ScoresActivity: " + categoryId);
-        Log.i(MainActivity.TAG, "finalScore in ScoresActivity: " + finalScore);
+        //Log.i(MainActivity.TAG, "categoryId in ScoresActivity: " + categoryId);
+        //Log.i(MainActivity.TAG, "finalScore in ScoresActivity: " + finalScore);
 
-        finalScoreText.setText("Final Score: " + finalScore); // Display the final score
+        finalScoreText.setText("Final Score: " + finalScore + "\nUser: " + userId); // Display the final score
 
         saveScoreToDatabase();  // save the score
 
@@ -106,12 +114,7 @@ public class ScoresActivity extends AppCompatActivity {
         Scores scores = new Scores(userId, categoryId, finalScore);  // Create a new Score object
 
         // Insert the score into the database in a background thread
-        new Thread(() -> {
-            scoresDAO.insert(scores);
-            runOnUiThread(() -> {
-                finish();
-            });
-        }).start();
+        repository.insertScores(scores);
     }
 
     /*private void returnToMainMenu() {

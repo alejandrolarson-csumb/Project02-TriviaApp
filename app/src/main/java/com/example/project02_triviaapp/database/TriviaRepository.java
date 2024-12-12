@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import com.example.project02_triviaapp.MainActivity;
 import com.example.project02_triviaapp.database.entities.Category;
 import com.example.project02_triviaapp.database.entities.Question;
+import com.example.project02_triviaapp.database.entities.Scores;
 import com.example.project02_triviaapp.database.entities.User;
 
 import java.util.List;
@@ -79,5 +80,12 @@ public class TriviaRepository {
             userDAO.insert(user);
         });
     }
+
+    public void insertScores (Scores scores){
+        TriviaDatabase.databaseWriteExecutor.execute(() -> {
+            scoresDAO.insert(scores);
+        });
+    }
+
 
 }
