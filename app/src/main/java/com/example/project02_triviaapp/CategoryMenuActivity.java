@@ -30,7 +30,8 @@ public class CategoryMenuActivity extends AppCompatActivity {
         binding.backButtonCategoryMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext()));
+                Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
+                startActivity(intent);
             }
         });
 
