@@ -11,6 +11,16 @@ import com.example.project02_triviaapp.database.TriviaDatabase;
 import com.example.project02_triviaapp.database.entities.Scores;
 import com.example.project02_triviaapp.database.ScoresDAO;
 
+/**
+ * @author Ben Shimek
+ * ScoresActivity.java displays the final score of the user after completing a trivia game.
+ * It also handles saving the user's score to the local database and allows the user to return to the main menu.
+ *
+ * The activity receives the final score, userId, and categoryId from the previous activity (GameplayActivity.java) using Intent.
+ * The score is automatically saved to the database when the activity is created.
+ * A button allows the user to navigate back to the MainActivity.
+ */
+
 public class ScoresActivity extends AppCompatActivity {
 
     private TextView finalScoreText;
@@ -20,6 +30,15 @@ public class ScoresActivity extends AppCompatActivity {
     private int finalScore;
     private long userId;
     private long categoryId;
+
+    /**
+     * @author Ben Shimek
+     * Called when the activity is created.
+     * This method sets up the UI, retrieves data passed from the previous activity, displays the final score,
+     * saves the score to the database, and sets the listener for the return button.
+     *
+     * @param savedInstanceState The saved instance state for the activity.
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +50,7 @@ public class ScoresActivity extends AppCompatActivity {
 
         // Get the data passed from GameActivity - NEEDS WORK!!
         Intent intent = getIntent();
-        // Will be passed form GameActivity to ScoresActivity
+        // Will be passed from GameActivity to ScoresActivity
         finalScore = intent.getIntExtra("final_score", 0);
         userId = intent.getLongExtra("user_id", 0);
         categoryId = intent.getLongExtra("category_id", 0);
@@ -54,6 +73,12 @@ public class ScoresActivity extends AppCompatActivity {
         /*returnToMainMenuButton.setOnClickListener(v -> returnToMainMenu());*/ // Use this instead?
     }
 
+    /**
+     * @author Ben Shimek
+     * Saves the user's score to the local database.
+     * A new Score object is created and inserted into the Scores table in the database.
+     * This operation is performed in a background thread to avoid blocking the main UI thread.
+     */
     private void saveScoreToDatabase() {
         TriviaDatabase db = Room.databaseBuilder(getApplicationContext(),
                 TriviaDatabase.class, "trivia_database").build();

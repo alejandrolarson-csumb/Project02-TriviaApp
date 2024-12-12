@@ -8,14 +8,14 @@
 
     <TextView
         android:id="@+id/final_score_text"
-        android:layout_width="260dp"
+        android:layout_width="280dp"
         android:layout_height="160dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="140dp"
-        android:text="Final Score: 0"
+        android:text="@string/final_score_0"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,8 +23,8 @@
         android:id="@+id/return_to_main_menu_button"
         android:layout_width="220dp"
         android:layout_height="100dp"
-        android:layout_marginTop="172dp"
-        android:text="Return to Main Menu"
+        android:layout_marginTop="100dp"
+        android:text="@string/return_to_main_menu"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
