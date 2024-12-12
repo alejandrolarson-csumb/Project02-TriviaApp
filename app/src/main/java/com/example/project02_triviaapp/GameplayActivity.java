@@ -35,6 +35,7 @@ public class GameplayActivity extends AppCompatActivity {
     private TriviaRepository repository;
 
     int questionNum = 0;
+    int categoryId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +47,13 @@ public class GameplayActivity extends AppCompatActivity {
 
         Intent fromAct = getIntent();
         questionNum = fromAct.getIntExtra(GAMEPLAY_ACTIVITY_QUESTION_ID, 0);
+        categoryId = fromAct.getIntExtra(GAMEPLAY_ACTIVITY_CATEGORY_ID, 0);
+
         Log.i(MainActivity.TAG, "GameplayActivity questionNum " + questionNum);
+        Log.i(MainActivity.TAG, "GameplayActivity categoryId " + categoryId);
 
         assert repository != null;
-        LiveData<List<Question>> questionObserver = repository.getQuestionsForCategory(1);
+        LiveData<List<Question>> questionObserver = repository.getQuestionsForCategory(categoryId);
         questionObserver.observe(this, question -> {
             //question is a List of the questions in a category
             Log.i(MainActivity.TAG, "GameplayActivity question List size " + question.size());
@@ -75,7 +79,7 @@ public class GameplayActivity extends AppCompatActivity {
                         Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
                         startActivity(intent);
                     } else {
-                        Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum);
+                        Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum, categoryId);
                         startActivity(intent);
                     }
                 }
@@ -89,7 +93,7 @@ public class GameplayActivity extends AppCompatActivity {
                         Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
                         startActivity(intent);
                     } else {
-                        Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum);
+                        Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum, categoryId);
                         startActivity(intent);
                     }
                 }
@@ -102,7 +106,7 @@ public class GameplayActivity extends AppCompatActivity {
                         Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
                         startActivity(intent);
                     } else {
-                        Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum);
+                        Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum, categoryId);
                         startActivity(intent);
                     }
                 }
@@ -115,49 +119,12 @@ public class GameplayActivity extends AppCompatActivity {
                         Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
                         startActivity(intent);
                     } else {
-                        Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum);
+                        Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum, categoryId);
                         startActivity(intent);
                     }
                 }
             });
 
-        });
-    }
-
-    private void submitAnswer() {
-        binding.answerASelectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Score increases by 1
-                questionNum += 1;
-                Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum);
-                startActivity(intent);
-            }
-        });
-
-        binding.answerBSelectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                questionNum += 1;
-                Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum);
-                startActivity(intent);
-            }
-        });
-        binding.answerCSelectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                questionNum += 1;
-                Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum);
-                startActivity(intent);
-            }
-        });
-        binding.answerDSelectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                questionNum += 1;
-                Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum);
-                startActivity(intent);
-            }
         });
     }
 
@@ -185,10 +152,10 @@ public class GameplayActivity extends AppCompatActivity {
     }
 
     //Added questionId, revert if issue
-    public static Intent gameplayMusicIntentFactory(Context context, int questionId) {
+    public static Intent gameplayMusicIntentFactory(Context context, int questionId, int categoryId) {
         Intent intent = new Intent(context, GameplayActivity.class);
-        //intent.putExtra(GAMEPLAY_ACTIVITY_CATEGORY_ID, categoryId);
         intent.putExtra(GAMEPLAY_ACTIVITY_QUESTION_ID, questionId);
+        intent.putExtra(GAMEPLAY_ACTIVITY_CATEGORY_ID, categoryId);
         return intent;
     }
 }

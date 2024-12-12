@@ -24,7 +24,7 @@
         android:id="@+id/selectMusicCategoryButton"
         android:layout_width="275dp"
         android:layout_height="125dp"
-        android:text="Music"
+        android:text="Movies"
         android:textSize="36sp"
         android:layout_marginTop="250dp"
         android:gravity="center"
