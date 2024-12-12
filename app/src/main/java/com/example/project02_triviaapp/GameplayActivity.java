@@ -41,7 +41,7 @@ public class GameplayActivity extends AppCompatActivity {
         questionNum = fromAct.getIntExtra(GAMEPLAY_ACTIVITY_QUESTION_ID, 0);
         categoryId = fromAct.getIntExtra(GAMEPLAY_ACTIVITY_CATEGORY_ID, 0);
 
-        Log.i(MainActivity.TAG, "GameplayActivity questionNum " + questionNum);
+        //Log.i(MainActivity.TAG, "GameplayActivity questionNum " + questionNum);
         //Log.i(MainActivity.TAG, "GameplayActivity categoryId " + categoryId);
 
         assert repository != null;
@@ -112,7 +112,7 @@ public class GameplayActivity extends AppCompatActivity {
             Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
             startActivity(intent);
         } else {
-            Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum, categoryId);
+            Intent intent = GameplayActivity.gameplayIntentFactory(getApplicationContext(), questionNum, categoryId);
             startActivity(intent);
         }
     }
@@ -253,7 +253,7 @@ public class GameplayActivity extends AppCompatActivity {
      * Method return an intent that includes the question to go to and the category to go to in
      * the database.
      */
-    public static Intent gameplayMusicIntentFactory(Context context, int questionId, int categoryId) {
+    public static Intent gameplayIntentFactory(Context context, int questionId, int categoryId, int score) {
         Intent intent = new Intent(context, GameplayActivity.class);
         intent.putExtra(GAMEPLAY_ACTIVITY_QUESTION_ID, questionId);
         intent.putExtra(GAMEPLAY_ACTIVITY_CATEGORY_ID, categoryId);

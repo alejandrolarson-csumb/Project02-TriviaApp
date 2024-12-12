@@ -5,11 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.project02_triviaapp.database.entities.Category;
 import com.example.project02_triviaapp.databinding.ActivityCategoryMenuBinding;
@@ -38,7 +34,7 @@ public class CategoryMenuActivity extends AppCompatActivity {
         binding.selectMusicCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), 0, 1);
+                Intent intent = GameplayActivity.gameplayIntentFactory(getApplicationContext(), 0, 1);
                 startActivity(intent);
             }
         });
@@ -46,7 +42,7 @@ public class CategoryMenuActivity extends AppCompatActivity {
         binding.selectHistoryCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), 0, 2);
+                Intent intent = GameplayActivity.gameplayIntentFactory(getApplicationContext(), 0, 2);
                 startActivity(intent);
             }
         });
