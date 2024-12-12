@@ -6,6 +6,8 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 
 import com.example.project02_triviaapp.MainActivity;
+import com.example.project02_triviaapp.database.entities.Category;
+import com.example.project02_triviaapp.database.entities.Question;
 import com.example.project02_triviaapp.database.entities.User;
 
 import java.util.List;
@@ -45,6 +47,19 @@ public class TriviaRepository {
             Log.d(MainActivity.TAG,"Problem getting TriviaRepository, thread error.");
         }
         return null;
+    }
+    ///////////////////////////
+    public LiveData<List<Question>> getQuestionsForCategory(int categoryId){
+        return questionDAO.getQuestionsForCategory(categoryId);
+    }
+
+
+    public LiveData<Question> getQuestionId(int questionId){
+        return questionDAO.getQuestionId(questionId);
+    }
+
+    public LiveData<Category> getCategoryByCategoryId(int categoryId){
+        return categoryDAO.getCategoryByCategoryId(categoryId);
     }
 
     public LiveData<List<User>> getAllUsers() {

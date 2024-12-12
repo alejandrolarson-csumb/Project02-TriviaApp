@@ -28,4 +28,8 @@ public interface CategoryDAO {
     @Query("SELECT * FROM " + TriviaDatabase.CATEGORY_TABLE + " WHERE categoryText = :category")
     LiveData<Category> getCategoryByCategoryText(String category);
 
+    @Query("SELECT * FROM " + TriviaDatabase.CATEGORY_TABLE + " WHERE categoryId = :categoryId")
+    LiveData<Category> getCategoryByCategoryId(long categoryId);
+
+
 }
