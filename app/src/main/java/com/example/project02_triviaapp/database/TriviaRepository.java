@@ -55,7 +55,7 @@ public class TriviaRepository {
         return userDAO.getUserByUserName(username);
     }
 
-    public LiveData<User> getUserByUserId(int id) {
+    public LiveData<User> getUserByUserId(long id) {
         return userDAO.getUserByUserId(id);
     }
 

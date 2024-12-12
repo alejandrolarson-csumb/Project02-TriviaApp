@@ -27,6 +27,6 @@ public interface UserDAO {
     LiveData<User> getUserByUserName(String username);
 
     @Query("SELECT * FROM " + TriviaDatabase.USER_TABLE + " WHERE userid = :userId")
-    LiveData<User> getUserByUserId(int userId);
+    LiveData<User> getUserByUserId(long userId);
 
 }
