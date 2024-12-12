@@ -16,20 +16,10 @@
         android:layout_marginRight="10dp"
         android:text="Question will go here. Can be changed in code."
         android:textSize="30sp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <EditText
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/answerDSelectButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:hint="Put your answer here"
-        android:id="@+id/userInputTheirAnswerEditText"
-        />
-
 
     <Button
         android:id="@+id/answerASelectButton"
