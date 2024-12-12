@@ -52,18 +52,75 @@ public class GameplayActivity extends AppCompatActivity {
         LiveData<List<Question>> questionObserver = repository.getQuestionsForCategory(1);
         questionObserver.observe(this, question -> {
             //question is a List of the questions in a category
-            //Log.i(MainActivity.TAG, "GameplayActivity question List size " + question.size());
-
-                createQuestionAnswers(question, questionNum);
+            Log.i(MainActivity.TAG, "GameplayActivity question List size " + question.size());
 
 
-                    submitAnswer();
+            if(questionNum == question.size()){
+                //TODO: Change to Scores Activity instead of Main Activity
+                Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
+                startActivity(intent);
+            }
 
-                /**
-                String userInputTheirAnswer = binding.userInputTheirAnswerEditText.getText().toString();
-                Log.i(MainActivity.TAG, "User inputted the answer " + userInputTheirAnswer);*/
+            Log.i(MainActivity.TAG, "GameplayActivity questionNum " + questionNum);
 
-            Log.i(MainActivity.TAG, "Went through for loop");
+            createQuestionAnswers(question, questionNum);
+
+            //submitAnswer();
+            binding.answerASelectButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Score increases by 1
+                    questionNum += 1;
+                    if(questionNum == question.size()){
+                        Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
+                        startActivity(intent);
+                    } else {
+                        Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum);
+                        startActivity(intent);
+                    }
+                }
+            });
+
+            binding.answerBSelectButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    questionNum += 1;
+                    if(questionNum == question.size()){
+                        Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
+                        startActivity(intent);
+                    } else {
+                        Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum);
+                        startActivity(intent);
+                    }
+                }
+            });
+            binding.answerCSelectButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    questionNum += 1;
+                    if(questionNum == question.size()){
+                        Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
+                        startActivity(intent);
+                    } else {
+                        Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum);
+                        startActivity(intent);
+                    }
+                }
+            });
+            binding.answerDSelectButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    questionNum += 1;
+                    if(questionNum == question.size()){
+                        Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
+                        startActivity(intent);
+                    } else {
+                        Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum);
+                        startActivity(intent);
+                    }
+                }
+            });
+
         });
     }
 
@@ -73,7 +130,6 @@ public class GameplayActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Score increases by 1
                 questionNum += 1;
-                Log.i(MainActivity.TAG, "questionNum variable is equal to " + questionNum);
                 Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum);
                 startActivity(intent);
             }
@@ -106,6 +162,7 @@ public class GameplayActivity extends AppCompatActivity {
     }
 
     public void createQuestionAnswers(List<Question> question, int questionNum) {
+
         Question particularQuestion = question.get(questionNum);
 
         String testQ = particularQuestion.getQuestionText();
