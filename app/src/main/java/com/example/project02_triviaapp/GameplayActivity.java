@@ -41,7 +41,7 @@ public class GameplayActivity extends AppCompatActivity {
         questionNum = fromAct.getIntExtra(GAMEPLAY_ACTIVITY_QUESTION_ID, 0);
         categoryId = fromAct.getIntExtra(GAMEPLAY_ACTIVITY_CATEGORY_ID, 0);
 
-        //Log.i(MainActivity.TAG, "GameplayActivity questionNum " + questionNum);
+        Log.i(MainActivity.TAG, "GameplayActivity questionNum " + questionNum);
         //Log.i(MainActivity.TAG, "GameplayActivity categoryId " + categoryId);
 
         assert repository != null;
@@ -53,11 +53,16 @@ public class GameplayActivity extends AppCompatActivity {
 
             createQuestionAnswers(questionsInList, questionNum);
 
+            Question particularQuestion = questionsInList.get(questionNum);
+
             //TODO: Implements an increase in score if answer is correct
             //TODO: Change to Scores Activity instead of Main Activity
             binding.answerASelectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(particularQuestion.getCorrectAnswer().equals(binding.answerASelectButton.getText().toString())){
+                        Log.i(MainActivity.TAG, "Score is increased!!!");
+                    }
                     nextQuestion(questionsInList);
                 }
             });
@@ -65,18 +70,27 @@ public class GameplayActivity extends AppCompatActivity {
             binding.answerBSelectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(particularQuestion.getCorrectAnswer().equals(binding.answerBSelectButton.getText().toString())){
+                        Log.i(MainActivity.TAG, "Score is increased!!!");
+                    }
                     nextQuestion(questionsInList);
                 }
             });
             binding.answerCSelectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(particularQuestion.getCorrectAnswer().equals(binding.answerCSelectButton.getText().toString())){
+                        Log.i(MainActivity.TAG, "Score is increased!!!");
+                    }
                     nextQuestion(questionsInList);
                 }
             });
             binding.answerDSelectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(particularQuestion.getCorrectAnswer().equals(binding.answerDSelectButton.getText().toString())){
+                        Log.i(MainActivity.TAG, "Score is increased!!!");
+                    }
                     nextQuestion(questionsInList);
                 }
             });
@@ -167,22 +181,12 @@ public class GameplayActivity extends AppCompatActivity {
 
         }
 
-        //String testAC1 = particularQuestion.getCorrectAnswer();
-        //Log.i(MainActivity.TAG, "GameplayActivity answer correct String " + testAC1);
-        //binding.answerASelectButton.setText(testAC1);
-
         String testAI = particularQuestion.getBadAnswers();
         String[] incorrectAnswers = testAI.split(",");
 
         //Log.i(MainActivity.TAG, "GameplayActivity answer incorrect String 1 " + incorrectAnswers[0]);
         //Log.i(MainActivity.TAG, "GameplayActivity answer incorrect String 2 " + incorrectAnswers[1]);
         //Log.i(MainActivity.TAG, "GameplayActivity answer incorrect String 3 " + incorrectAnswers[2]);
-
-        /**
-         binding.answerBSelectButton.setText(incorrectAnswers[0]);
-         binding.answerCSelectButton.setText(incorrectAnswers[1]);
-         binding.answerDSelectButton.setText(incorrectAnswers[2]);
-         */
 
         switch (randomNum2) {
             case 1:
