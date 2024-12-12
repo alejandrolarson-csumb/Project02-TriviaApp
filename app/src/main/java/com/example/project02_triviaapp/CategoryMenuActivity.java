@@ -34,7 +34,7 @@ public class CategoryMenuActivity extends AppCompatActivity {
         binding.selectMusicCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = GameplayActivity.gameplayIntentFactory(getApplicationContext(), 0, 1);
+                Intent intent = GameplayActivity.gameplayIntentFactory(getApplicationContext(), 0, 1, 0);
                 startActivity(intent);
             }
         });
@@ -42,7 +42,7 @@ public class CategoryMenuActivity extends AppCompatActivity {
         binding.selectHistoryCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = GameplayActivity.gameplayIntentFactory(getApplicationContext(), 0, 2);
+                Intent intent = GameplayActivity.gameplayIntentFactory(getApplicationContext(), 0, 2, 0);
                 startActivity(intent);
             }
         });

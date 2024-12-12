@@ -19,11 +19,13 @@ import java.util.Random;
 public class GameplayActivity extends AppCompatActivity {
     private static final String GAMEPLAY_ACTIVITY_CATEGORY_ID = "com.example.project02_triviaapp.GAMEPLAY_ACTIVITY_CATEGORY_ID";
     private static final String GAMEPLAY_ACTIVITY_QUESTION_ID = "com.example.project02_triviaapp.GAMEPLAY_ACTIVITY_QUESTION_ID";
+    private static final String GAMEPLAY_ACTIVITY_SCORE = "com.example.project02_triviaapp.GAMEPLAY_ACTIVITY_SCORE";
     ActivityGameplayBinding binding;
     private TriviaRepository repository;
 
     int questionNum;
     int categoryId;
+    int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class GameplayActivity extends AppCompatActivity {
         Intent fromAct = getIntent();
         questionNum = fromAct.getIntExtra(GAMEPLAY_ACTIVITY_QUESTION_ID, 0);
         categoryId = fromAct.getIntExtra(GAMEPLAY_ACTIVITY_CATEGORY_ID, 0);
+        score = fromAct.getIntExtra(GAMEPLAY_ACTIVITY_SCORE, 0);
 
         //Log.i(MainActivity.TAG, "GameplayActivity questionNum " + questionNum);
         //Log.i(MainActivity.TAG, "GameplayActivity categoryId " + categoryId);
@@ -62,6 +65,7 @@ public class GameplayActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     if(particularQuestion.getCorrectAnswer().equals(binding.answerASelectButton.getText().toString())){
                         Log.i(MainActivity.TAG, "Score is increased!!!");
+                        score += 1;
                     }
                     nextQuestion(questionsInList);
                 }
@@ -72,24 +76,29 @@ public class GameplayActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     if(particularQuestion.getCorrectAnswer().equals(binding.answerBSelectButton.getText().toString())){
                         Log.i(MainActivity.TAG, "Score is increased!!!");
+                        score += 1;
                     }
                     nextQuestion(questionsInList);
                 }
             });
+
             binding.answerCSelectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(particularQuestion.getCorrectAnswer().equals(binding.answerCSelectButton.getText().toString())){
                         Log.i(MainActivity.TAG, "Score is increased!!!");
+                        score += 1;
                     }
                     nextQuestion(questionsInList);
                 }
             });
+
             binding.answerDSelectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(particularQuestion.getCorrectAnswer().equals(binding.answerDSelectButton.getText().toString())){
                         Log.i(MainActivity.TAG, "Score is increased!!!");
+                        score += 1;
                     }
                     nextQuestion(questionsInList);
                 }
@@ -109,10 +118,11 @@ public class GameplayActivity extends AppCompatActivity {
     private void nextQuestion(List<Question> questionsInList) {
         questionNum += 1;
         if (questionNum == questionsInList.size()) {
+            Log.i(MainActivity.TAG, "Final score is: " + score);
             Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
             startActivity(intent);
         } else {
-            Intent intent = GameplayActivity.gameplayIntentFactory(getApplicationContext(), questionNum, categoryId);
+            Intent intent = GameplayActivity.gameplayIntentFactory(getApplicationContext(), questionNum, categoryId, score);
             startActivity(intent);
         }
     }
@@ -257,6 +267,7 @@ public class GameplayActivity extends AppCompatActivity {
         Intent intent = new Intent(context, GameplayActivity.class);
         intent.putExtra(GAMEPLAY_ACTIVITY_QUESTION_ID, questionId);
         intent.putExtra(GAMEPLAY_ACTIVITY_CATEGORY_ID, categoryId);
+        intent.putExtra(GAMEPLAY_ACTIVITY_SCORE, score);
         return intent;
     }
 }
