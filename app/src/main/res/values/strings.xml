@@ -2,4 +2,6 @@
     <string name="app_name">Project02-TriviaApp</string>
     <string name="preference_userid_key">t7PreferenceUserIdKeyTrivia</string>
     <string name="preference_file_key">t7PreferenceFileNameKeyTrivia</string>
+    <string name="final_score_0">Final Score: 0</string>
+    <string name="return_to_main_menu">Return to Main Menu</string>
 </resources>

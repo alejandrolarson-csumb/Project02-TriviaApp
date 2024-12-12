@@ -102,7 +102,7 @@ public abstract class TriviaDatabase extends RoomDatabase {
                         "The Spanish Flu,Smallpox,The HIV/AIDS pandemic");
                 questDao.insert(question);
 
-                Scores scores = new Scores(testUserId, moviesID, 10);
+                Scores scores = new Scores(testUserId, moviesID, 10); // change to testScores?
                 scoresDao.insert(scores);
 
 
