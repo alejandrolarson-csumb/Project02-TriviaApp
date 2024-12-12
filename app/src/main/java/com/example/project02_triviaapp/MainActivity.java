@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "DAC_TRIVIALOG";
     private ActivityMainBinding binding;
     private TriviaRepository repository;
-    private int loggedInUserId = -1;
-    private int LOGGED_OUT = -1;
+    private long loggedInUserId = -1;
+    private long LOGGED_OUT = -1;
     private User user;
 
 
@@ -127,13 +127,13 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-        loggedInUserId = sharedPreferences.getInt(getString(R.string.preference_userid_key), LOGGED_OUT);
+        loggedInUserId = sharedPreferences.getLong(getString(R.string.preference_userid_key), LOGGED_OUT);
 
         if (loggedInUserId == LOGGED_OUT & savedInstanceState != null) {
-            loggedInUserId = savedInstanceState.getInt(SHARED_PREFERENCE_USERID_KEY, LOGGED_OUT);
+            loggedInUserId = savedInstanceState.getLong(SHARED_PREFERENCE_USERID_KEY, LOGGED_OUT);
         }
         if (loggedInUserId == LOGGED_OUT) {
-            loggedInUserId = getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
+            loggedInUserId = getIntent().getLongExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
         }
         if (loggedInUserId == LOGGED_OUT) {
             return;
@@ -157,17 +157,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void updateSharedPreference() {
-        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key),
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(getString(R.string.preference_file_key),
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
-        sharedPrefEditor.putInt(getString(R.string.preference_userid_key), loggedInUserId);
+        sharedPrefEditor.putLong(getString(R.string.preference_userid_key), loggedInUserId);
         sharedPrefEditor.apply();
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(SAVED_INSTANCE_STATE_USERID_KEY, loggedInUserId);
+        outState.putLong(SAVED_INSTANCE_STATE_USERID_KEY, loggedInUserId);
         updateSharedPreference();
     }
 }
