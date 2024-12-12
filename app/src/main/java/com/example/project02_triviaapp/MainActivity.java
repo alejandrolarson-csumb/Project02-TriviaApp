@@ -61,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.isAdminButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Admin button is clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     public static Intent MainActivityIntentFactory(Context context, long userId) {
