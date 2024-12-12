@@ -53,10 +53,10 @@ public class TriviaRepository {
         return questionDAO.getQuestionsForCategory(categoryId);
     }
 
-    /**
+
     public LiveData<Question> getQuestionId(int questionId){
         return questionDAO.getQuestionId(questionId);
-    } */
+    }
 
     public LiveData<Category> getCategoryByCategoryId(int categoryId){
         return categoryDAO.getCategoryByCategoryId(categoryId);
