@@ -6,36 +6,23 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.LiveData;
 
 import com.example.project02_triviaapp.database.TriviaRepository;
-import com.example.project02_triviaapp.database.entities.Category;
 import com.example.project02_triviaapp.database.entities.Question;
 import com.example.project02_triviaapp.databinding.ActivityGameplayBinding;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class GameplayActivity extends AppCompatActivity {
-
     private static final String GAMEPLAY_ACTIVITY_CATEGORY_ID = "com.example.project02_triviaapp.GAMEPLAY_ACTIVITY_CATEGORY_ID";
     private static final String GAMEPLAY_ACTIVITY_QUESTION_ID = "com.example.project02_triviaapp.GAMEPLAY_ACTIVITY_QUESTION_ID";
     ActivityGameplayBinding binding;
-
     private TriviaRepository repository;
 
-    int questionNum = 0;
-    int categoryId = 0;
+    int questionNum;
+    int categoryId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,92 +32,87 @@ public class GameplayActivity extends AppCompatActivity {
 
         repository = TriviaRepository.getRepository(getApplication());
 
+        /**
+         * @author Shane Ritter
+         * Getting information sent from the gameplayActivityIntentFactory
+         */
         Intent fromAct = getIntent();
         questionNum = fromAct.getIntExtra(GAMEPLAY_ACTIVITY_QUESTION_ID, 0);
         categoryId = fromAct.getIntExtra(GAMEPLAY_ACTIVITY_CATEGORY_ID, 0);
 
-        Log.i(MainActivity.TAG, "GameplayActivity questionNum " + questionNum);
-        Log.i(MainActivity.TAG, "GameplayActivity categoryId " + categoryId);
+        //Log.i(MainActivity.TAG, "GameplayActivity questionNum " + questionNum);
+        //Log.i(MainActivity.TAG, "GameplayActivity categoryId " + categoryId);
 
         assert repository != null;
         LiveData<List<Question>> questionObserver = repository.getQuestionsForCategory(categoryId);
-        questionObserver.observe(this, question -> {
-            //question is a List of the questions in a category
-            Log.i(MainActivity.TAG, "GameplayActivity question List size " + question.size());
+        questionObserver.observe(this, questionsInList -> {
+            //questionsInList is a List of the questions in a category
+            //Log.i(MainActivity.TAG, "GameplayActivity question List size " + questionsInList.size());
+            //Log.i(MainActivity.TAG, "GameplayActivity questionNum " + questionNum);
 
+            createQuestionAnswers(questionsInList, questionNum);
 
-            if(questionNum == question.size()){
-                //TODO: Change to Scores Activity instead of Main Activity
-                Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
-                startActivity(intent);
-            }
-
-            Log.i(MainActivity.TAG, "GameplayActivity questionNum " + questionNum);
-
-            createQuestionAnswers(question, questionNum);
-
-            //submitAnswer();
+            //TODO: Implements an increase in score if answer is correct
+            //TODO: Change to Scores Activity instead of Main Activity
             binding.answerASelectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Score increases by 1
-                    questionNum += 1;
-                    if(questionNum == question.size()){
-                        Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
-                        startActivity(intent);
-                    } else {
-                        Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum, categoryId);
-                        startActivity(intent);
-                    }
+                    nextQuestion(questionsInList);
                 }
             });
 
             binding.answerBSelectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    questionNum += 1;
-                    if(questionNum == question.size()){
-                        Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
-                        startActivity(intent);
-                    } else {
-                        Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum, categoryId);
-                        startActivity(intent);
-                    }
+                    nextQuestion(questionsInList);
                 }
             });
             binding.answerCSelectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    questionNum += 1;
-                    if(questionNum == question.size()){
-                        Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
-                        startActivity(intent);
-                    } else {
-                        Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum, categoryId);
-                        startActivity(intent);
-                    }
+                    nextQuestion(questionsInList);
                 }
             });
             binding.answerDSelectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    questionNum += 1;
-                    if(questionNum == question.size()){
-                        Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
-                        startActivity(intent);
-                    } else {
-                        Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum, categoryId);
-                        startActivity(intent);
-                    }
+                    nextQuestion(questionsInList);
                 }
             });
 
         });
     }
 
-    public void createQuestionAnswers(List<Question> question, int questionNum) {
+    /**
+     * @author Shane Ritter
+     * Method allows the activity to go to the next question in the database using
+     * the variable questionNum. If there are no more questions left, we currently (12/11/2024) go
+     * to the Main Activity instead.
+     * @param questionsInList The amount and details of questions in a category is given to us in
+     * the parameter questionsInList.
+     */
+    private void nextQuestion(List<Question> questionsInList) {
+        questionNum += 1;
+        if (questionNum == questionsInList.size()) {
+            Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
+            startActivity(intent);
+        } else {
+            Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum, categoryId);
+            startActivity(intent);
+        }
+    }
 
-        Question particularQuestion = question.get(questionNum);
+    /**
+     * @author Shane Ritter
+     * The method takes the question, correct answer, and incorrect answer from a Question object
+     * in the database and assigns them to their repective TextView and Buttons.
+     * @param questionsInList he amount and details of questions in a category is given to us in
+     * the parameter questionsInList.
+     * @param questionNum The question number that the user is currently on
+     */
+    private void createQuestionAnswers(List<Question> questionsInList, int questionNum) {
+
+        Question particularQuestion = questionsInList.get(questionNum);
 
         String testQ = particularQuestion.getQuestionText();
         //Log.i(MainActivity.TAG, "GameplayActivity question String " + testQ);
@@ -151,7 +133,13 @@ public class GameplayActivity extends AppCompatActivity {
         binding.answerDSelectButton.setText(incorrectAnswers[2]);
     }
 
-    //Added questionId, revert if issue
+    /**
+     * @author Shane Ritter
+     * Method return an intent that includes the question to go to and the category to go to in
+     * the database.
+     * @param questionId The number question to go to in the category
+     * @param categoryId The category number of the category selected
+     */
     public static Intent gameplayMusicIntentFactory(Context context, int questionId, int categoryId) {
         Intent intent = new Intent(context, GameplayActivity.class);
         intent.putExtra(GAMEPLAY_ACTIVITY_QUESTION_ID, questionId);
