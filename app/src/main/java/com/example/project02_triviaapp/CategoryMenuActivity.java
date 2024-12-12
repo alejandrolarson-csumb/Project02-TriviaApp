@@ -37,7 +37,7 @@ public class CategoryMenuActivity extends AppCompatActivity {
         binding.selectMusicCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext());
+                Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), 0);
                 startActivity(intent);
             }
         });
