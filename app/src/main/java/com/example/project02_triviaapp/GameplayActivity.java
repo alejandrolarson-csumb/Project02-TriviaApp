@@ -29,9 +29,12 @@ import java.util.ListIterator;
 public class GameplayActivity extends AppCompatActivity {
 
     private static final String GAMEPLAY_ACTIVITY_CATEGORY_ID = "com.example.project02_triviaapp.GAMEPLAY_ACTIVITY_CATEGORY_ID";
+    private static final String GAMEPLAY_ACTIVITY_QUESTION_ID = "com.example.project02_triviaapp.GAMEPLAY_ACTIVITY_QUESTION_ID";
     ActivityGameplayBinding binding;
 
     private TriviaRepository repository;
+
+    int questionNum = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,60 +44,94 @@ public class GameplayActivity extends AppCompatActivity {
 
         repository = TriviaRepository.getRepository(getApplication());
 
+        Intent fromAct = getIntent();
+        questionNum = fromAct.getIntExtra(GAMEPLAY_ACTIVITY_QUESTION_ID, 0);
+        Log.i(MainActivity.TAG, "GameplayActivity questionNum " + questionNum);
+
         assert repository != null;
         LiveData<List<Question>> questionObserver = repository.getQuestionsForCategory(1);
         questionObserver.observe(this, question -> {
             //question is a List of the questions in a category
-            Log.i(MainActivity.TAG, "GameplayActivity question List size " + question.size());
+            //Log.i(MainActivity.TAG, "GameplayActivity question List size " + question.size());
 
-            for(int i = 0; i < question.size(); i++) {
-                Question particularQuestion = question.get(i);
+                createQuestionAnswers(question, questionNum);
 
-                String testQ = particularQuestion.getQuestionText();
-                Log.i(MainActivity.TAG, "GameplayActivity question String " + testQ);
-                binding.questionTextView.setText(testQ);
 
-                String testAC1 = particularQuestion.getCorrectAnswer();
-                Log.i(MainActivity.TAG, "GameplayActivity answer correct String " + testAC1);
-                binding.answerASelectButton.setText(testAC1);
+                    submitAnswer();
 
-                String testAI = particularQuestion.getBadAnswers();
-                String[] incorrectAnswers = testAI.split(",");
+                /**
+                String userInputTheirAnswer = binding.userInputTheirAnswerEditText.getText().toString();
+                Log.i(MainActivity.TAG, "User inputted the answer " + userInputTheirAnswer);*/
 
-                Log.i(MainActivity.TAG, "GameplayActivity answer incorrect String 1 " + incorrectAnswers[0]);
-                Log.i(MainActivity.TAG, "GameplayActivity answer incorrect String 2 " + incorrectAnswers[1]);
-                Log.i(MainActivity.TAG, "GameplayActivity answer incorrect String 3 " + incorrectAnswers[2]);
-                binding.answerBSelectButton.setText(incorrectAnswers[0]);
-                binding.answerCSelectButton.setText(incorrectAnswers[1]);
-                binding.answerDSelectButton.setText(incorrectAnswers[2]);
-
-                binding.answerASelectButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //Score increases by 1
-                    }
-                });
-            }
-
+            Log.i(MainActivity.TAG, "Went through for loop");
         });
-        //if
-        /*
-        Question question = questionsForCategory.getValue().get(0);
-        String test = question.getQuestionText();
-        binding.questionTextView.setText(test);*/
-
-        //Works
-        binding.questionTextView.setText("Testing to see if this works");
-        binding.answerASelectButton.setText("This");
-        binding.answerBSelectButton.setText("is");
-        binding.answerCSelectButton.setText("super");
-        binding.answerDSelectButton.setText("annoying");
-
     }
 
-    public static Intent gameplayMusicIntentFactory(Context context) {
+    private void submitAnswer() {
+        binding.answerASelectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Score increases by 1
+                questionNum += 1;
+                Log.i(MainActivity.TAG, "questionNum variable is equal to " + questionNum);
+                Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum);
+                startActivity(intent);
+            }
+        });
+
+        binding.answerBSelectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                questionNum += 1;
+                Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum);
+                startActivity(intent);
+            }
+        });
+        binding.answerCSelectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                questionNum += 1;
+                Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum);
+                startActivity(intent);
+            }
+        });
+        binding.answerDSelectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                questionNum += 1;
+                Intent intent = GameplayActivity.gameplayMusicIntentFactory(getApplicationContext(), questionNum);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void createQuestionAnswers(List<Question> question, int questionNum) {
+        Question particularQuestion = question.get(questionNum);
+
+        String testQ = particularQuestion.getQuestionText();
+        //Log.i(MainActivity.TAG, "GameplayActivity question String " + testQ);
+        binding.questionTextView.setText(testQ);
+
+        String testAC1 = particularQuestion.getCorrectAnswer();
+        //Log.i(MainActivity.TAG, "GameplayActivity answer correct String " + testAC1);
+        binding.answerASelectButton.setText(testAC1);
+
+        String testAI = particularQuestion.getBadAnswers();
+        String[] incorrectAnswers = testAI.split(",");
+
+        //Log.i(MainActivity.TAG, "GameplayActivity answer incorrect String 1 " + incorrectAnswers[0]);
+        //Log.i(MainActivity.TAG, "GameplayActivity answer incorrect String 2 " + incorrectAnswers[1]);
+        //Log.i(MainActivity.TAG, "GameplayActivity answer incorrect String 3 " + incorrectAnswers[2]);
+        binding.answerBSelectButton.setText(incorrectAnswers[0]);
+        binding.answerCSelectButton.setText(incorrectAnswers[1]);
+        binding.answerDSelectButton.setText(incorrectAnswers[2]);
+    }
+
+    //Added questionId, revert if issue
+    public static Intent gameplayMusicIntentFactory(Context context, int questionId) {
         Intent intent = new Intent(context, GameplayActivity.class);
         //intent.putExtra(GAMEPLAY_ACTIVITY_CATEGORY_ID, categoryId);
+        intent.putExtra(GAMEPLAY_ACTIVITY_QUESTION_ID, questionId);
         return intent;
     }
 }
