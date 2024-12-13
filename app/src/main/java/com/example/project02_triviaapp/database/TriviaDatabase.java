@@ -90,6 +90,23 @@ public abstract class TriviaDatabase extends RoomDatabase {
                         "Toy Story",
                         "Shrek,Despicable Me,Dinosaur");
                 questDao.insert(question);
+                question = new Question(moviesID,
+                        "Which animated movie features the song \"When You Wish Upon a Star\"?",
+                        "Pinocchio",
+                        "Peter Pan,Dumbo,Cinderella");
+                questDao.insert(question);
+                question = new Question(moviesID,
+                        "What did Steven Spielberg and the movie's crew name the " +
+                                "animatronic shark from the movie Jaws?",
+                        "Bruce",
+                        "Alfred,Jason,Samantha");
+                questDao.insert(question);
+                question = new Question(moviesID,
+                        "In Episode V of Star Wars, what is the famous line that Darth " +
+                                "Vader says to Luke Skywalker?",
+                        "No… I am your father",
+                        "Luke… I am your father,Please get down from there,It’s a trap");
+                questDao.insert(question);
 
                 //Initializing all Questions for History
                 question = new Question(historyID,
