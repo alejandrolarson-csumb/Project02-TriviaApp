@@ -21,7 +21,6 @@ import java.util.concurrent.Executors;
 
 @Database(entities = {User.class, Category.class, Question.class, Scores.class}, version = 3, exportSchema = false)
 public abstract class TriviaDatabase extends RoomDatabase {
-
     public static final String USER_TABLE = "user_table";
     public static final String CATEGORY_TABLE = "category_table";
     public static final String QUESTION_TABLE = "question_table";
@@ -131,22 +130,7 @@ public abstract class TriviaDatabase extends RoomDatabase {
                         "Queen Elizabeth II",
                         "Queen Victoria,King Charles III, King William");
                 questDao.insert(question);
-
-               // Scores scores = new Scores(testUserId, moviesID, 10); // change to testScores?
-                //scoresDao.insert(scores);
             });
         }
     };
-
-    public boolean areForeignKeysEnabled(SupportSQLiteDatabase db) {
-        Cursor cursor = db.query("PRAGMA foreign_keys");
-        if (cursor.moveToFirst()) {
-            int foreignKeysEnabled = cursor.getInt(0);
-            cursor.close();
-            return foreignKeysEnabled == 1;
-        }
-        cursor.close();
-        return false;
-    }
-
 }
