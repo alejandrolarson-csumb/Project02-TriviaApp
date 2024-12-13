@@ -23,6 +23,7 @@
         android:id="@+id/userDisplayRecyclerView"
         android:layout_width="0dp"
         android:layout_height="300dp"
+        tools:listitem="@layout/recyclerview_item"
         android:layout_marginTop="25dp"
         android:padding="2dp"
         app:layout_constraintEnd_toEndOf="parent"
