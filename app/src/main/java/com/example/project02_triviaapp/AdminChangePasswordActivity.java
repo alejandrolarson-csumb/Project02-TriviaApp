@@ -1,5 +1,7 @@
 package com.example.project02_triviaapp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -8,17 +10,22 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.project02_triviaapp.databinding.ActivityAdminChangePasswordBinding;
+
 public class AdminChangePasswordActivity extends AppCompatActivity {
+
+    private ActivityAdminChangePasswordBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_admin_change_password);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        binding = ActivityAdminChangePasswordBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
     }
+
+    public static Intent AdminChangePasswordIntentFactory(Context context) {
+        return new Intent(context, AdminChangePasswordActivity.class);
+    }
+
 }
