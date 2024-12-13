@@ -27,7 +27,6 @@ public abstract class TriviaDatabase extends RoomDatabase {
     public static final String QUESTION_TABLE = "question_table";
     public static final String SCORES_TABLE = "scores_table";
 
-
     private static final String DATABASE_NAME = "trivia_database";
     public abstract UserDAO userDAO();
     public abstract CategoryDAO categoryDAO();
@@ -65,7 +64,6 @@ public abstract class TriviaDatabase extends RoomDatabase {
                 QuestionDAO questDao = INSTANCE.questionDAO();
                 ScoresDAO scoresDao = INSTANCE.scoresDAO();
 
-                // TODO: may not want to delete all in the future
                 dao.deleteAll();
                 //Insert users for testing purposes
                 User admin = new User("admin1", "admin1");
@@ -136,11 +134,6 @@ public abstract class TriviaDatabase extends RoomDatabase {
 
                 Scores scores = new Scores(testUserId, moviesID, 10); // change to testScores?
                 scoresDao.insert(scores);
-
-
-
-
-
             });
         }
     };
