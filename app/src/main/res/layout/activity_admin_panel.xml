@@ -7,4 +7,62 @@
     android:layout_height="match_parent"
     tools:context=".AdminPanelActivity">
 
+    <ImageView
+        android:id="@+id/adminPanelIconImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:contentDescription="@string/admin_wrench_icon"
+        android:src="@drawable/adminwrench"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/adminPanelHeaderTextView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/admin_panel"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/adminPanelIconImageView" />
+
+    <Button
+        android:id="@+id/adminPanelViewListOfUsersButton"
+        android:layout_width="275dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="@string/view_list_of_users"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/adminPanelHeaderTextView" />
+
+    <Button
+        android:id="@+id/adminPanelChangeUserPasswordButton"
+        android:layout_width="275dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="@string/change_user_password"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/adminPanelViewListOfUsersButton" />
+
+    <Button
+        android:id="@+id/adminPanelBackButton"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="Back"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
