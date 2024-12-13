@@ -33,5 +33,18 @@ public interface UserDAO {
     @Query("UPDATE " + TriviaDatabase.USER_TABLE + " SET password = :pw WHERE userid = :id")
     void updatePassword(long id, String pw);
 
+    //This query is useful for unit testing
+    @Query("SELECT * FROM " + TriviaDatabase.USER_TABLE + " WHERE username = :name")
+    List<User> findUsersByName(String name);
+
+    @Query("SELECT * FROM " + TriviaDatabase.USER_TABLE + " WHERE userid = :userId")
+    User testGetUserByUserId(long userId);
+
+    @Update
+    void updateUser(User user);
+
+    @Query("SELECT * FROM " + TriviaDatabase.USER_TABLE)
+    List<User> getAllUsersNotLiveData();
+
 
 }
