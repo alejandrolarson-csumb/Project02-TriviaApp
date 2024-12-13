@@ -4,4 +4,8 @@
     <string name="preference_file_key">t7PreferenceFileNameKeyTrivia</string>
     <string name="final_score_0">Final Score: 0</string>
     <string name="return_to_main_menu">Return to Main Menu</string>
+    <string name="admin_wrench_icon">Admin Wrench Icon</string>
+    <string name="view_list_of_users">View List of Users</string>
+    <string name="admin_panel">Admin Panel</string>
+    <string name="change_user_password">Change User Password</string>
 </resources>
