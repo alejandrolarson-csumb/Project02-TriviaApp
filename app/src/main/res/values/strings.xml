@@ -8,4 +8,5 @@
     <string name="view_list_of_users">View List of Users</string>
     <string name="admin_panel">Admin Panel</string>
     <string name="change_user_password">Change User Password</string>
+    <string name="multiple_users">multiple users</string>
 </resources>

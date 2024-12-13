@@ -7,14 +7,37 @@
     android:layout_height="match_parent"
     tools:context=".AdminUsersListActivity">
 
+    <ImageView
+        android:id="@+id/adminUsersListImageView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp"
+        android:contentDescription="@string/multiple_users"
+        android:src="@drawable/multipleusersicon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userDisplayRecyclerView"
         android:layout_width="0dp"
         android:layout_height="300dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:padding="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        />
+    <Button
+        android:id="@+id/adminUserListBackButton"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="Back"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
