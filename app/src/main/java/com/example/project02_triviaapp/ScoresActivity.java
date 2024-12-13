@@ -45,6 +45,7 @@ public class ScoresActivity extends AppCompatActivity {
 
     /**
      * @author Ben Shimek
+     * @author Shane Ritter
      * Called when the activity is created.
      * This method sets up the UI, retrieves data passed from the previous activity, displays the final score,
      * saves the score to the database, and sets the listener for the return button.
@@ -73,19 +74,15 @@ public class ScoresActivity extends AppCompatActivity {
         // Will be passed from GameActivity to ScoresActivity
         finalScore = fromAct.getIntExtra(SCORES_ACTIVITY_FINAL_SCORE, 0);
         userId = fromAct.getLongExtra("user_id", userFromMain);
-        //categoryId = fromAct.getLongExtra("category_id", 0);
         categoryId = fromAct.getIntExtra(SCORES_ACTIVITY_CATEGORY_ID, 0);
 
-        Log.i(MainActivity.TAG, "userId in ScoresActivity: " + userId);
-        //Log.i(MainActivity.TAG, "categoryId in ScoresActivity: " + categoryId);
-        //Log.i(MainActivity.TAG, "finalScore in ScoresActivity: " + finalScore);
-
-        finalScoreText.setText("Final Score: " + finalScore + "\nUser: " + userId); // Display the final score
+        // Display the final score
+        finalScoreText.setText("Final Score \n" + finalScore + " / " +
+                GameplayActivity.getQuestionListSize);
 
         saveScoreToDatabase();  // save the score
 
         // click to return to main menu
-        //TODO: intent to return to main menu);
         returnToMainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,6 +121,13 @@ public class ScoresActivity extends AppCompatActivity {
         finish();
     }*/ //Do we need to make this a method?
 
+    /**
+     * @author Shane Ritter
+     * @param context getApplicationContext
+     * @param categoryId the id number of the category chosen
+     * @param finalScore score calculated in GameplayActivity
+     * @return intent
+     */
     public static Intent scoresIntentFactory(Context context, int categoryId, int finalScore){
         Log.i(MainActivity.TAG, "scoresIntentFactory score: " + finalScore);
         Intent intent = new Intent(context, ScoresActivity.class);

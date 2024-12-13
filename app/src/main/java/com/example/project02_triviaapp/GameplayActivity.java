@@ -17,7 +17,13 @@ import java.util.List;
 import java.util.Random;
 
 /**
- *
+ * @author Shane Ritter
+ * GameplayActivity contains the main gameplay loop of the Trivia game and uses the questions_table
+ * from the trivia_database. This Activity grabs a list of questions that match the category the
+ * user has picked. The questions are loaded in one at a time with their corresponding answers,
+ * which are randomized to different buttons. If the user clicks on the button with the correct
+ * answers, there score increases by one. Next set of questions and answers are loaded in until all
+ * questions in the list has been answered.
  */
 
 public class GameplayActivity extends AppCompatActivity {
@@ -26,7 +32,7 @@ public class GameplayActivity extends AppCompatActivity {
     private static final String GAMEPLAY_ACTIVITY_SCORE = "com.example.project02_triviaapp.GAMEPLAY_ACTIVITY_SCORE";
     ActivityGameplayBinding binding;
     private TriviaRepository repository;
-
+    public static int getQuestionListSize;
     int questionNum;
     int categoryId;
     int score;
@@ -41,7 +47,8 @@ public class GameplayActivity extends AppCompatActivity {
 
         /**
          * @author Shane Ritter
-         * Getting information sent from the gameplayActivityIntentFactory
+         * Getting information sent from the gameplayActivityIntentFactory. If no information is
+         * sent, the default value is zero
          */
         Intent fromAct = getIntent();
         questionNum = fromAct.getIntExtra(GAMEPLAY_ACTIVITY_QUESTION_ID, 0);
@@ -58,15 +65,22 @@ public class GameplayActivity extends AppCompatActivity {
             //Log.i(MainActivity.TAG, "GameplayActivity question List size " + questionsInList.size());
             //Log.i(MainActivity.TAG, "GameplayActivity questionNum " + questionNum);
 
+            getQuestionListSize = questionsInList.size();
+
             createQuestionAnswers(questionsInList, questionNum);
 
             Question particularQuestion = questionsInList.get(questionNum);
 
-            //TODO: Change to Scores Activity instead of Main Activity
+            /**
+             * @author Shane Ritter
+             * Waits for one of the four buttons with answers to the question to be clicked. If the
+             * text on the button equals the correct answer, the score is increased and nextQuestion
+             * is called.
+             */
             binding.answerASelectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(particularQuestion.getCorrectAnswer().equals(binding.answerASelectButton.getText().toString())){
+                    if (particularQuestion.getCorrectAnswer().equals(binding.answerASelectButton.getText().toString())) {
                         Log.i(MainActivity.TAG, "Score is increased!!!");
                         score += 1;
                     }
@@ -77,7 +91,7 @@ public class GameplayActivity extends AppCompatActivity {
             binding.answerBSelectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(particularQuestion.getCorrectAnswer().equals(binding.answerBSelectButton.getText().toString())){
+                    if (particularQuestion.getCorrectAnswer().equals(binding.answerBSelectButton.getText().toString())) {
                         Log.i(MainActivity.TAG, "Score is increased!!!");
                         score += 1;
                     }
@@ -88,7 +102,7 @@ public class GameplayActivity extends AppCompatActivity {
             binding.answerCSelectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(particularQuestion.getCorrectAnswer().equals(binding.answerCSelectButton.getText().toString())){
+                    if (particularQuestion.getCorrectAnswer().equals(binding.answerCSelectButton.getText().toString())) {
                         Log.i(MainActivity.TAG, "Score is increased!!!");
                         score += 1;
                     }
@@ -99,7 +113,7 @@ public class GameplayActivity extends AppCompatActivity {
             binding.answerDSelectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(particularQuestion.getCorrectAnswer().equals(binding.answerDSelectButton.getText().toString())){
+                    if (particularQuestion.getCorrectAnswer().equals(binding.answerDSelectButton.getText().toString())) {
                         Log.i(MainActivity.TAG, "Score is increased!!!");
                         score += 1;
                     }
@@ -144,10 +158,17 @@ public class GameplayActivity extends AppCompatActivity {
         Question particularQuestion = questionsInList.get(questionNum);
 
         String testQ = particularQuestion.getQuestionText();
-        //Log.i(MainActivity.TAG, "GameplayActivity question String " + testQ);
         binding.questionTextView.setText(testQ);
 
 
+        /**
+         * @author Shane Ritter
+         * Random number generated between 1-4 is put into the randomNum variables. These numbers
+         * correspond to a different button (Ex: 1 = A, 2= B, etc.). If a number generated is
+         * already generated, a different number will be generated. Each randonNum variable are
+         * then connected to either a correct or incorrect answer, which then becomes the text on
+         * a button.
+         */
         Random random = new Random();
         int max = 4;
         int min = 1;
@@ -192,7 +213,6 @@ public class GameplayActivity extends AppCompatActivity {
             case 4:
                 binding.answerDSelectButton.setText(correctAnswerFromTable);
                 break;
-
         }
 
         String badAnswersFromTable = particularQuestion.getBadAnswers();
@@ -218,7 +238,6 @@ public class GameplayActivity extends AppCompatActivity {
             case 4:
                 binding.answerDSelectButton.setText(incorrectAnswers[0]);
                 break;
-
         }
 
         switch (randomNum3) {
@@ -237,7 +256,6 @@ public class GameplayActivity extends AppCompatActivity {
             case 4:
                 binding.answerDSelectButton.setText(incorrectAnswers[1]);
                 break;
-
         }
 
         switch (randomNum4) {
@@ -256,14 +274,13 @@ public class GameplayActivity extends AppCompatActivity {
             case 4:
                 binding.answerDSelectButton.setText(incorrectAnswers[2]);
                 break;
-
         }
     }
 
     /**
      * @param questionId The number question to go to in the category
      * @param categoryId The category number of the category selected
-     * @param score The current score the player has earned
+     * @param score      The current score the player has earned
      * @author Shane Ritter
      * Method return an intent that includes the parameters questionId, categoryId, and score.
      * These are saved as they are needed to identify the next question and keep track of the
