@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.project02_triviaapp.database.entities.User;
 
@@ -28,5 +29,9 @@ public interface UserDAO {
 
     @Query("SELECT * FROM " + TriviaDatabase.USER_TABLE + " WHERE userid = :userId")
     LiveData<User> getUserByUserId(long userId);
+
+    @Query("UPDATE user_table SET password = :pw WHERE userid = :id")
+    void updatePassword(long id, String pw);
+
 
 }
