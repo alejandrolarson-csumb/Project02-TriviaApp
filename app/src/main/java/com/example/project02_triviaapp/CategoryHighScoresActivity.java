@@ -66,7 +66,7 @@ public class CategoryHighScoresActivity extends AppCompatActivity {
 
         historyButton.setOnClickListener(v -> openLeaderboard(2, "History"));
         otherCategoryButton.setOnClickListener(v -> openLeaderboard(3, "Other Category"));
-        otherCategoryButton2.setOnClickListener(v -> openLeaderboard(4, "Other Category"));
+        otherCategoryButton2.setOnClickListener(v -> openLeaderboard(4, "Other Category 2"));
 
     }
 

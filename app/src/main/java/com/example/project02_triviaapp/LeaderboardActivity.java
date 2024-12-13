@@ -66,7 +66,7 @@ public class LeaderboardActivity extends AppCompatActivity {
 
         // Get the top 3 scores for the selected category
         if (categoryId != -1) {
-            categoryNameTextView.setText(categoryName + " Leaderboard");
+            categoryNameTextView.setText(categoryName + "\n Leaderboard!");
             getTopScores(categoryId);
         }else{
             leaderboardText.setText("Invalid category.");
