@@ -76,6 +76,7 @@ public class ScoresActivity extends AppCompatActivity {
         userId = fromAct.getLongExtra("user_id", userFromMain);
         categoryId = fromAct.getIntExtra(SCORES_ACTIVITY_CATEGORY_ID, 0);
 
+
         // Display the final score
         finalScoreText.setText("Final Score \n" + finalScore + " / " +
                 GameplayActivity.getQuestionListSize);
