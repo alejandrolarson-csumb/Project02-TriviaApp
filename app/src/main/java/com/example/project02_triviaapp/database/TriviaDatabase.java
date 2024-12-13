@@ -1,6 +1,7 @@
 package com.example.project02_triviaapp.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -112,5 +113,16 @@ public abstract class TriviaDatabase extends RoomDatabase {
             });
         }
     };
+
+    public boolean areForeignKeysEnabled(SupportSQLiteDatabase db) {
+        Cursor cursor = db.query("PRAGMA foreign_keys");
+        if (cursor.moveToFirst()) {
+            int foreignKeysEnabled = cursor.getInt(0);
+            cursor.close();
+            return foreignKeysEnabled == 1;
+        }
+        cursor.close();
+        return false;
+    }
 
 }

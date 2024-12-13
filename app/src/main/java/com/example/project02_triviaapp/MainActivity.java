@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "DAC_TRIVIALOG";
     private ActivityMainBinding binding;
     private TriviaRepository repository;
-    private long loggedInUserId = -1;
+    public static long loggedInUserId = -1;
     private long LOGGED_OUT = -1;
     private User user;
 
@@ -58,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(CategoryMenuActivity.categoryIntentFactory(getApplicationContext()));
+            }
+        });
+
+        binding.isAdminButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Admin button is clicked", Toast.LENGTH_SHORT).show();
             }
         });
 
