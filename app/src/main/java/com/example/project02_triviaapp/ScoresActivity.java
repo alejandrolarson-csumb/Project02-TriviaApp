@@ -114,13 +114,6 @@ public class ScoresActivity extends AppCompatActivity {
         repository.insertScores(scores);
     }
 
-    /*private void returnToMainMenu() {
-        // Create an Intent to go back to the Main Menu
-        Intent intent = new Intent(ScoresActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }*/ //Do we need to make this a method?
-
     /**
      * @author Shane Ritter
      * @param context getApplicationContext

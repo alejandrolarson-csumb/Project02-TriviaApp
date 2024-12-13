@@ -21,12 +21,10 @@ import java.util.concurrent.Executors;
 
 @Database(entities = {User.class, Category.class, Question.class, Scores.class}, version = 3, exportSchema = false)
 public abstract class TriviaDatabase extends RoomDatabase {
-
     public static final String USER_TABLE = "user_table";
     public static final String CATEGORY_TABLE = "category_table";
     public static final String QUESTION_TABLE = "question_table";
     public static final String SCORES_TABLE = "scores_table";
-
 
     private static final String DATABASE_NAME = "trivia_database";
     public abstract UserDAO userDAO();
@@ -65,7 +63,6 @@ public abstract class TriviaDatabase extends RoomDatabase {
                 QuestionDAO questDao = INSTANCE.questionDAO();
                 ScoresDAO scoresDao = INSTANCE.scoresDAO();
 
-                // TODO: may not want to delete all in the future
                 dao.deleteAll();
                 //Insert users for testing purposes
                 User admin = new User("admin1", "admin1");
@@ -90,6 +87,23 @@ public abstract class TriviaDatabase extends RoomDatabase {
                         "Toy Story",
                         "Shrek,Despicable Me,Dinosaur");
                 questDao.insert(question);
+                question = new Question(moviesID,
+                        "Which animated movie features the song \"When You Wish Upon a Star\"?",
+                        "Pinocchio",
+                        "Peter Pan,Dumbo,Cinderella");
+                questDao.insert(question);
+                question = new Question(moviesID,
+                        "What did Steven Spielberg and the movie's crew name the " +
+                                "animatronic shark from the movie Jaws?",
+                        "Bruce",
+                        "Alfred,Jason,Samantha");
+                questDao.insert(question);
+                question = new Question(moviesID,
+                        "In Episode V of Star Wars, what is the famous line that Darth " +
+                                "Vader says to Luke Skywalker?",
+                        "No…I am your father",
+                        "Luke…I am your father,Please get down from there,It’s a trap");
+                questDao.insert(question);
 
                 //Initializing all Questions for History
                 question = new Question(historyID,
@@ -102,27 +116,21 @@ public abstract class TriviaDatabase extends RoomDatabase {
                         "The Black Plague",
                         "The Spanish Flu,Smallpox,The HIV/AIDS pandemic");
                 questDao.insert(question);
-
-                Scores scores = new Scores(testUserId, moviesID, 10); // change to testScores?
-                scoresDao.insert(scores);
-
-
-
-
-
+                question = new Question(historyID, "What was the first American state?",
+                        "Delaware",
+                        "New York,Louisiana,Connecticut");
+                questDao.insert(question);
+                question = new Question(historyID,
+                        "Which structure came down in 1989, unifying Germany once more?",
+                        "The Berlin Wall",
+                        "The Great Wall,The Soviet Wall,The Border Wall");
+                questDao.insert(question);
+                question = new Question(historyID,
+                        "Who has reigned the longest in the British monarchy?",
+                        "Queen Elizabeth II",
+                        "Queen Victoria,King Charles III, King William");
+                questDao.insert(question);
             });
         }
     };
-
-    public boolean areForeignKeysEnabled(SupportSQLiteDatabase db) {
-        Cursor cursor = db.query("PRAGMA foreign_keys");
-        if (cursor.moveToFirst()) {
-            int foreignKeysEnabled = cursor.getInt(0);
-            cursor.close();
-            return foreignKeysEnabled == 1;
-        }
-        cursor.close();
-        return false;
-    }
-
 }

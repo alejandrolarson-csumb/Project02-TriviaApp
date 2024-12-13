@@ -17,6 +17,15 @@
         <activity android:name=".CategoryHighScoresActivity"
                   android:exported="false"/>
         <activity
+            android:name=".AdminChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminUsersListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminPanelActivity"
+            android:exported="false" />
+        <activity
             android:name=".CategoryMenuActivity"
             android:exported="false" />
         <activity
