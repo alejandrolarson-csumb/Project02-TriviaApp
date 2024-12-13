@@ -28,6 +28,13 @@ public class AdminPanelActivity extends AppCompatActivity {
             }
         });
 
+        binding.adminPanelViewListOfUsersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(AdminUsersListActivity.AdminUsersListIntentFactory(getApplicationContext()));
+            }
+        });
+
     }
 
     public static Intent AdminPanelIntentFactory(Context context) {
