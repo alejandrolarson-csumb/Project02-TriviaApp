@@ -81,6 +81,12 @@ public class TriviaRepository {
         });
     }
 
+    public void updatePassword(long userId, String password) {
+        TriviaDatabase.databaseWriteExecutor.execute(() -> {
+            userDAO.updatePassword(userId, password);
+        });
+    }
+
     public void insertScores (Scores scores){
         TriviaDatabase.databaseWriteExecutor.execute(() -> {
             scoresDAO.insert(scores);
