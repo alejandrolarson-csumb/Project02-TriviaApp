@@ -11,9 +11,26 @@ import com.example.project02_triviaapp.database.entities.Scores;
 
 import java.util.List;
 
+/**
+ * @author Ben Shimek
+ * LeaderboardActivity displays the top 3 scores for a selected trivia category.
+ * The category is passed to the activity throug an Intent, and the activity queries the database
+ * for the top 3 scores related to that category.
+ *
+ * The activity updates the UI to show the top scores or a message indicating that no scores are available.
+ */
+
 public class LeaderboardActivity extends AppCompatActivity {
 
     private TextView leaderboardText;
+
+    /**
+     * @author Ben Shimek
+     * Called when the activity is created.
+     * This method retrieves the category passed through the Intent, then queries the database
+     * for the top 3 scores for that category and displays them in the leaderboard.
+     * @param savedInstanceState The saved instance state for the activity.
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +44,16 @@ public class LeaderboardActivity extends AppCompatActivity {
         String category = intent.getStringExtra("category");
 
         // Get the top 3 scores for the selected category
-        getTopScores(category); //TODO: need to make getTopScores() method
+        getTopScores(category);
     }
 
+    /**
+     * @author Ben Shimek
+     * Queries the database for the top 3 scores for a given category and updates the UI
+     * to display the leaderboard. If no scores are available, a message is shown.
+     * This method performs the database query in a background thread to prevent blocking the UI thread.
+     * @param category The category for which to fetch the top scores.
+     */
     private void getTopScores(String category) {
         // Get the database instance
         TriviaDatabase db = Room.databaseBuilder(getApplicationContext(),
@@ -38,7 +62,7 @@ public class LeaderboardActivity extends AppCompatActivity {
 
         // Get the top 3 scores for the given category
         new Thread(() -> {
-            List<Scores> topScores = scoresDAO.getTopScoresForCategory(category); //TODO: need to create method in ScoresDAO
+            List<Scores> topScores = scoresDAO.getTopScoresForCategory(category);
 
             // Update the UI with the top scores
             runOnUiThread(() -> {
