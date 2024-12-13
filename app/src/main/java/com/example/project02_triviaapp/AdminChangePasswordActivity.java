@@ -5,12 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
@@ -64,7 +59,6 @@ public class AdminChangePasswordActivity extends AppCompatActivity {
             public void onChanged(User user) {
                 if (user != null) {
                     // User exists
-                    // TODO: may need to get userid different way
                     repository.updatePassword(user.getUserid(),password);
                     Toast.makeText(AdminChangePasswordActivity.this, "password changed", Toast.LENGTH_SHORT).show();
                 } else {

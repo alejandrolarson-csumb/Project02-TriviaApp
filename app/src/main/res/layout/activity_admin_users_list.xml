@@ -7,4 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".AdminUsersListActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userDisplayRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="20dp"
+        android:padding="2dp"
+
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
