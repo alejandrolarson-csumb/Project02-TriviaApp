@@ -3,6 +3,7 @@ package com.example.project02_triviaapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,12 @@ public class AdminPanelActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
+        binding.adminPanelBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext()));
+            }
+        });
 
     }
 
