@@ -28,4 +28,7 @@ public interface ScoresDAO {
     @Query("DELETE FROM " + TriviaDatabase.SCORES_TABLE)
     void deleteAll();
 
+    @Query("SELECT * FROM " + TriviaDatabase.SCORES_TABLE + " WHERE categoryId = :categoryId ORDER BY score DESC LIMIT 3")
+    List<Scores> getTopScoresForCategory(String category); // TODO: super confused on how this works
+
 }
