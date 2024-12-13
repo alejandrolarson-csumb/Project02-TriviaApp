@@ -3,9 +3,11 @@ package com.example.project02_triviaapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.project02_triviaapp.database.entities.Category;
+import com.example.project02_triviaapp.databinding.ActivityCategoryHighScoresBinding;
 
 /**
  * @author Ben Shimek
@@ -17,6 +19,8 @@ import com.example.project02_triviaapp.database.entities.Category;
  */
 
 public class CategoryHighScoresActivity extends AppCompatActivity {
+
+    ActivityCategoryHighScoresBinding binding;
 
     private Button moviesButton;
     private Button historyButton;
@@ -34,7 +38,8 @@ public class CategoryHighScoresActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_high_scores);
+        binding = ActivityCategoryHighScoresBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // Initialize buttons
         moviesButton = findViewById(R.id.movies_button);
@@ -42,22 +47,37 @@ public class CategoryHighScoresActivity extends AppCompatActivity {
         otherCategoryButton = findViewById(R.id.other_category_button);
         otherCategoryButton2 = findViewById(R.id.other_category_button2);
 
+        binding.backButtonCategoryHighScoresMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
+                startActivity(intent);
+            }
+        });
+
         // Set onClickListeners for each button
-        moviesButton.setOnClickListener(v -> openLeaderboard(Category.MOVIES)); // TODO: need to create constant fields in Category.java
-        historyButton.setOnClickListener(v -> openLeaderboard(Category.HISTORY));
-        otherCategoryButton.setOnClickListener(v -> openLeaderboard(Category.OTHER_CATEGORY));
-        otherCategoryButton2.setOnClickListener(v -> openLeaderboard(Category.OTHER_CATEGORY_2));
+        /*moviesButton.setOnClickListener(v -> openLeaderboard(1));*/
+        binding.moviesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLeaderboard(1);
+            }
+        });
+
+        historyButton.setOnClickListener(v -> openLeaderboard(2));
+        otherCategoryButton.setOnClickListener(v -> openLeaderboard(3));
+        otherCategoryButton2.setOnClickListener(v -> openLeaderboard(4));
 
     }
 
     /**
      * @author Ben Shimek
      * Starts the LeaderboardActivity and passes the selected category to it via an Intent.
-     * @param category The category whose leaderboard is to be displayed. This value will be passed to LeaderboardActivity.
+     * @param id The category whose leaderboard is to be displayed. This value will be passed to LeaderboardActivity.
      */
-    private void openLeaderboard(String category) {  //TODO: need to create LeaderboardActivity.java
+    private void openLeaderboard(long id) {  //TODO: need to create LeaderboardActivity.java
         Intent intent = new Intent(CategoryHighScoresActivity.this, LeaderboardActivity.class);
-        intent.putExtra("category", category);
+        intent.putExtra("categoryId", id);
         startActivity(intent);
     }
 

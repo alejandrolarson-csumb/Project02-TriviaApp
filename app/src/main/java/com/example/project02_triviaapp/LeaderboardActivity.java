@@ -1,10 +1,13 @@
 package com.example.project02_triviaapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.project02_triviaapp.database.TriviaDatabase;
+
+import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 import com.example.project02_triviaapp.database.ScoresDAO;
 import com.example.project02_triviaapp.database.entities.Scores;
@@ -40,11 +43,15 @@ public class LeaderboardActivity extends AppCompatActivity {
         leaderboardText = findViewById(R.id.leaderboard_text);
 
         // Get the category from the intent
-        Intent intent = getIntent();
-        String category = intent.getStringExtra("category");
+        /*Intent intent = getIntent();*/
+        long categoryId = getIntent().getLongExtra("categoryId",-1);
 
         // Get the top 3 scores for the selected category
-        /*getTopScores(category);*/
+        if (categoryId != -1) {
+            getTopScores(categoryId);
+        }else{
+            leaderboardText.setText("Invalid category.");
+        }
     }
 
     /**
@@ -52,39 +59,45 @@ public class LeaderboardActivity extends AppCompatActivity {
      * Queries the database for the top 3 scores for a given category and updates the UI
      * to display the leaderboard. If no scores are available, a message is shown.
      * This method performs the database query in a background thread to prevent blocking the UI thread.
-     * @param category The category for which to fetch the top scores.
+     * @param categoryId The category for which to fetch the top scores.
      */
-    /*private void getTopScores(String category) {
-        // Get the database instance
-        TriviaDatabase db = Room.databaseBuilder(getApplicationContext(),
-                TriviaDatabase.class, "trivia_database").build();
-        ScoresDAO scoresDAO = db.scoresDAO();
+    private void getTopScores(long categoryId) {
 
         // Get the top 3 scores for the given category
         new Thread(() -> {
-            List<Scores> topScores = scoresDAO.getTopScoresForCategory(category);
+            // Get the database instance
+            TriviaDatabase db = Room.databaseBuilder(getApplicationContext(),
+                    TriviaDatabase.class, "trivia_database").build();
+            ScoresDAO scoresDAO = db.scoresDAO();
+
+           LiveData<List<Scores>> topScores = scoresDAO.getTopScoresForCategory(categoryId);
 
             // Update the UI with the top scores
             runOnUiThread(() -> {
-                if (topScores.isEmpty()) {
-                    leaderboardText.setText("No scores available for this category.");
-                } else {
+                if (topScores != null && !topScores.isEmpty()) {
                     StringBuilder leaderboard = new StringBuilder();
-                    for (int i = 0; i < Math.min(topScores.size(), 3); i++) {
+                    int count = Math.min(topScores.size(),3);
+                    for (int i = 0; i < count; i++) {
                         Scores score = topScores.get(i);
                         leaderboard.append(i + 1)
                                 .append(". ")
                                 .append("User: ")
-                                .append(score.getUserId()) // TODO: need to get the userID from User
+                                .append(score.getUserOwnerId()) // TODO: need to get the userID from User
                                 .append(" - Score: ")
                                 .append(score.getScore())
                                 .append("\n");
                     }
                     leaderboardText.setText(leaderboard.toString());
+                }else{
+                    leaderboardText.setText("No scores available for this category.");
                 }
             });
         }).start();
-    }*/
+    }
+
+    public static Intent leaderboardActivityIntentFactory(Context context) {
+        return new Intent(context, LeaderboardActivity.class);
+    }
 
 }
 
