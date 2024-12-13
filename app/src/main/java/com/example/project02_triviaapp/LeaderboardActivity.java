@@ -12,7 +12,6 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 import com.example.project02_triviaapp.database.ScoresDAO;
 import com.example.project02_triviaapp.database.entities.Scores;
-import com.example.project02_triviaapp.databinding.ActivityCategoryHighScoresBinding;
 import com.example.project02_triviaapp.databinding.ActivityLeaderboardBinding;
 
 import java.util.List;

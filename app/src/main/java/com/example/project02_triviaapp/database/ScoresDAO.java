@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.project02_triviaapp.database.entities.Scores;
+import com.example.project02_triviaapp.database.entities.User;
 
 import java.util.List;
 
