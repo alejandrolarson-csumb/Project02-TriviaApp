@@ -68,6 +68,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.viewHighScoresButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CategoryHighScoresActivity.categoryHighScoresActivityIntentFactory(getApplicationContext()));
+                startActivity(intent);
+            }
+        });
+
     }
 
     public static Intent MainActivityIntentFactory(Context context, long userId) {

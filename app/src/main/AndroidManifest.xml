@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         tools:targetApi="31">
+        <activity android:name=".LeaderboardActivity"
+                  android:exported="false"/>
+        <activity android:name=".CategoryHighScoresActivity"
+                  android:exported="false"/>
         <activity
             android:name=".AdminChangePasswordActivity"
             android:exported="false" />
