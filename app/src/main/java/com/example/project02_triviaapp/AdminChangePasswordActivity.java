@@ -12,6 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import com.example.project02_triviaapp.database.TriviaRepository;
 import com.example.project02_triviaapp.database.entities.User;
@@ -29,7 +30,6 @@ public class AdminChangePasswordActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         repository = TriviaRepository.getRepository(getApplication());
-
 
 
         binding.adminChangeUserPasswordBackButton.setOnClickListener(new View.OnClickListener() {
@@ -58,23 +58,27 @@ public class AdminChangePasswordActivity extends AppCompatActivity {
         }
 
         LiveData<User> userObserver = repository.getUserByUserName(username);
-        userObserver.observe(this, user -> {
-            if (user != null) {
-                // User exists
-                // Change password
-                repository.updatePassword(user.getUserid(), password);
-                Toast.makeText(this, "Password change successful",
-                        Toast.LENGTH_SHORT).show();
-            } else {
-                // User doesn't exist
-                Toast.makeText(this, "Invalid user", Toast.LENGTH_SHORT).show();
+
+        userObserver.observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (user != null) {
+                    // User exists
+                    // TODO: may need to get userid different way
+                    repository.updatePassword(user.getUserid(),password);
+                    Toast.makeText(AdminChangePasswordActivity.this, "password changed", Toast.LENGTH_SHORT).show();
+                } else {
+                    // User doesn't exist
+                    Toast.makeText(AdminChangePasswordActivity.this, "password changed", Toast.LENGTH_SHORT).show();
+                }
+                userObserver.removeObserver(this);
             }
         });
 
     }
 
-    public static Intent AdminChangePasswordIntentFactory(Context context) {
-        return new Intent(context, AdminChangePasswordActivity.class);
-    }
+        public static Intent AdminChangePasswordIntentFactory (Context context){
+            return new Intent(context, AdminChangePasswordActivity.class);
+        }
 
-}
+    }

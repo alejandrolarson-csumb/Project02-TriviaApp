@@ -30,7 +30,7 @@ public interface UserDAO {
     @Query("SELECT * FROM " + TriviaDatabase.USER_TABLE + " WHERE userid = :userId")
     LiveData<User> getUserByUserId(long userId);
 
-    @Query("UPDATE user_table SET password = :pw WHERE userid = :id")
+    @Query("UPDATE " + TriviaDatabase.USER_TABLE + " SET password = :pw WHERE userid = :id")
     void updatePassword(long id, String pw);
 
 
