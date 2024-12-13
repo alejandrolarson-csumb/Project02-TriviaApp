@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         binding.isAdminButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Admin button is clicked", Toast.LENGTH_SHORT).show();
+                startActivity(AdminPanelActivity.AdminPanelIntentFactory(getApplicationContext()));
             }
         });
 
