@@ -29,6 +29,13 @@ public class User {
     }
 
     @Override
+    public String toString() {
+        return  " | USERID=" + userid +
+                " | USERNAME=" + username  +
+                " | PASSWORD=" + password  + " |";
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(userid, username, password, isAdmin);
     }
