@@ -22,11 +22,10 @@ public class UserViewModel extends AndroidViewModel {
 
     }
 
-    LiveData<List<User>> getAllUsers() {
+    public LiveData<List<User>> getAllUsers() {
         return allUsers;
     }
 
-    // TODO: may not be needed
     public void insert(User user) {
         repository.insert(user);
     }
