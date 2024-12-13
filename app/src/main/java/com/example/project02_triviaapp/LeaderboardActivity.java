@@ -44,7 +44,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         String category = intent.getStringExtra("category");
 
         // Get the top 3 scores for the selected category
-        getTopScores(category);
+        /*getTopScores(category);*/
     }
 
     /**
@@ -54,7 +54,7 @@ public class LeaderboardActivity extends AppCompatActivity {
      * This method performs the database query in a background thread to prevent blocking the UI thread.
      * @param category The category for which to fetch the top scores.
      */
-    private void getTopScores(String category) {
+    /*private void getTopScores(String category) {
         // Get the database instance
         TriviaDatabase db = Room.databaseBuilder(getApplicationContext(),
                 TriviaDatabase.class, "trivia_database").build();
@@ -84,7 +84,7 @@ public class LeaderboardActivity extends AppCompatActivity {
                 }
             });
         }).start();
-    }
+    }*/
 
 }
 

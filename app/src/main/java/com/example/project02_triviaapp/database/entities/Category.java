@@ -8,6 +8,11 @@ import java.util.Objects;
 
 @Entity(tableName = "category_table")
 public class Category {
+    public static final String MOVIES = "Moives";
+    public static final String HISTORY = "History";
+    public static final String OTHER_CATEGORY = "Other Category";
+    public static final String OTHER_CATEGORY_2 = "Other Category 2";
+
     @PrimaryKey(autoGenerate = true)
     private long categoryId;
     private String categoryText;
