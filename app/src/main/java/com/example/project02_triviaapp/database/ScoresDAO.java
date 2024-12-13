@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.project02_triviaapp.database.entities.Scores;
+import com.example.project02_triviaapp.database.entities.TopScoreWithUser;
 import com.example.project02_triviaapp.database.entities.User;
 
 import java.util.List;
@@ -29,7 +30,19 @@ public interface ScoresDAO {
     @Query("DELETE FROM " + TriviaDatabase.SCORES_TABLE)
     void deleteAll();
 
-    @Query("SELECT * FROM " + TriviaDatabase.SCORES_TABLE + " WHERE categoryOwnerId = :categoryId ORDER BY score DESC LIMIT 3")
-    List<Scores> getTopScoresForCategory(long categoryId); // TODO: super confused on how this works
+    /*@Query("SELECT * FROM " + TriviaDatabase.SCORES_TABLE + " WHERE categoryOwnerId = :categoryId ORDER BY score DESC LIMIT 3")
+    List<Scores> getTopScoresForCategory(long categoryId);*/ // TODO: super confused on how this works
+
+
+        // Query to get the top 3 scores for a category, including the username of the user
+        @Query("SELECT " + TriviaDatabase.SCORES_TABLE + ".*, " + TriviaDatabase.USER_TABLE + ".username " +
+                "FROM " + TriviaDatabase.SCORES_TABLE + " " +
+                "INNER JOIN " + TriviaDatabase.USER_TABLE + " ON " + TriviaDatabase.SCORES_TABLE + ".userOwnerId = " + TriviaDatabase.USER_TABLE + ".userid " +
+                "WHERE " + TriviaDatabase.SCORES_TABLE + ".categoryOwnerId = :categoryId " +
+                "ORDER BY " + TriviaDatabase.SCORES_TABLE + ".score DESC LIMIT 3")
+        LiveData<List<TopScoreWithUser>> getTopScoresForCategory(long categoryId);
+
+
+
 
 }

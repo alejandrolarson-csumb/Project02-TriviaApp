@@ -3,6 +3,7 @@ package com.example.project02_triviaapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 import com.example.project02_triviaapp.database.ScoresDAO;
 import com.example.project02_triviaapp.database.entities.Scores;
+import com.example.project02_triviaapp.database.entities.TopScoreWithUser;
 import com.example.project02_triviaapp.databinding.ActivityLeaderboardBinding;
 
 import java.util.List;
@@ -74,7 +76,7 @@ public class LeaderboardActivity extends AppCompatActivity {
      * This method performs the database query in a background thread to prevent blocking the UI thread.
      * @param categoryId The category for which to fetch the top scores.
      */
-    private void getTopScores(long categoryId) {
+    /*private void getTopScores(long categoryId) {
 
         // Get the top 3 scores for the given category
         new Thread(() -> {
@@ -106,7 +108,37 @@ public class LeaderboardActivity extends AppCompatActivity {
                 }
             });
         }).start();
+    }*/
+
+    private void getTopScores(long categoryId) {
+        // Get the database instance
+        TriviaDatabase db = Room.databaseBuilder(getApplicationContext(),
+                TriviaDatabase.class, "trivia_database").build();
+        ScoresDAO scoresDAO = db.scoresDAO();
+
+        // Observe the LiveData for top scores in the category
+        scoresDAO.getTopScoresForCategory(categoryId).observe(this, topScores -> {
+            if (topScores != null && !topScores.isEmpty()) {
+                StringBuilder leaderboard = new StringBuilder();
+                int count = Math.min(topScores.size(), 3); // Limit to top 3 scores
+                for (int i = 0; i < count; i++) {
+                    TopScoreWithUser score = topScores.get(i);
+                    Log.d("Leaderboard", "User: " + score.getUserName() + ", Score: " + score.getScore());
+
+                    leaderboard.append(i + 1)
+                            .append(". ")
+                            .append(score.getUserName())  // Username from the join query
+                            .append(" - Score: ")
+                            .append(score.getScore())
+                            .append("\n");
+                }
+                leaderboardText.setText(leaderboard.toString());
+            } else {
+                leaderboardText.setText("No scores available for this category.");
+            }
+        });
     }
+
 
     public static Intent leaderboardActivityIntentFactory(Context context) {
         return new Intent(context, LeaderboardActivity.class);
