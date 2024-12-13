@@ -1,5 +1,7 @@
 package com.example.project02_triviaapp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 
@@ -20,4 +22,9 @@ public class AdminPanelActivity extends AppCompatActivity {
 
 
     }
+
+    public static Intent AdminPanelIntentFactory(Context context) {
+        return new Intent(context, AdminPanelActivity.class);
+    }
+
 }

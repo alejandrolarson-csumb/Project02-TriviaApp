@@ -61,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.isAdminButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(AdminPanelActivity.AdminPanelIntentFactory(getApplicationContext()));
+            }
+        });
+
     }
 
     public static Intent MainActivityIntentFactory(Context context, long userId) {
