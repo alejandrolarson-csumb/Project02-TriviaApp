@@ -104,8 +104,8 @@ public abstract class TriviaDatabase extends RoomDatabase {
                 question = new Question(moviesID,
                         "In Episode V of Star Wars, what is the famous line that Darth " +
                                 "Vader says to Luke Skywalker?",
-                        "No… I am your father",
-                        "Luke… I am your father,Please get down from there,It’s a trap");
+                        "No…I am your father",
+                        "Luke…I am your father,Please get down from there,It’s a trap");
                 questDao.insert(question);
 
                 //Initializing all Questions for History
