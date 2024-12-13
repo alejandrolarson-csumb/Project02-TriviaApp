@@ -132,8 +132,8 @@ public abstract class TriviaDatabase extends RoomDatabase {
                         "Queen Victoria,King Charles III, King William");
                 questDao.insert(question);
 
-                Scores scores = new Scores(testUserId, moviesID, 10); // change to testScores?
-                scoresDao.insert(scores);
+               // Scores scores = new Scores(testUserId, moviesID, 10); // change to testScores?
+                //scoresDao.insert(scores);
             });
         }
     };
