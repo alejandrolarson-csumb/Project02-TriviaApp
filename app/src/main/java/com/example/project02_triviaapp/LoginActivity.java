@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import com.example.project02_triviaapp.database.TriviaRepository;
 import com.example.project02_triviaapp.database.entities.User;
@@ -54,16 +55,20 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
         LiveData<User> userObserver = repository.getUserByUserName(username);
-        userObserver.observe(this, user -> {
-            if(user != null){
-                toastMaker("Username already registered");
-                return;
-            } else {
-                // Insert new user into database
-                User newUser = new User(username,password);
-                repository.insert(newUser);
-                // TODO how to check if this insert is successful?
-                toastMaker("Account registered");
+        userObserver.observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (user != null) {
+                    toastMaker("Username already registered");
+                    return;
+                } else {
+                    // Register user
+                    User newUser = new User(username, password);
+                    repository.insert(newUser);
+                    toastMaker("Account registered");
+                    // Stop this because we don't need observer anymore
+                    userObserver.removeObserver(this);
+                }
             }
         });
     }
