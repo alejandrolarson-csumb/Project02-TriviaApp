@@ -32,6 +32,7 @@ public class LeaderboardActivity extends AppCompatActivity {
     ActivityLeaderboardBinding binding;
 
     private TextView leaderboardText;
+    private TextView categoryNameTextView;
 
     /**
      * @author Ben Shimek
@@ -55,14 +56,17 @@ public class LeaderboardActivity extends AppCompatActivity {
             }
         });
 
+        categoryNameTextView = findViewById(R.id.category_name_text_view);
         leaderboardText = findViewById(R.id.leaderboard_text);
 
         // Get the category from the intent
         /*Intent intent = getIntent();*/
         long categoryId = getIntent().getLongExtra("categoryId",-1);
+        String categoryName = getIntent().getStringExtra("categoryName");
 
         // Get the top 3 scores for the selected category
         if (categoryId != -1) {
+            categoryNameTextView.setText(categoryName + " Leaderboard");
             getTopScores(categoryId);
         }else{
             leaderboardText.setText("Invalid category.");
@@ -134,7 +138,7 @@ public class LeaderboardActivity extends AppCompatActivity {
                 }
                 leaderboardText.setText(leaderboard.toString());
             } else {
-                leaderboardText.setText("No scores available for this category.");
+                leaderboardText.setText("No scores available.");
             }
         });
     }

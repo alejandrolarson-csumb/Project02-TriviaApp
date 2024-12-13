@@ -60,13 +60,13 @@ public class CategoryHighScoresActivity extends AppCompatActivity {
         binding.moviesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openLeaderboard(1);
+                openLeaderboard(1, "Movies");
             }
         });
 
-        historyButton.setOnClickListener(v -> openLeaderboard(2));
-        otherCategoryButton.setOnClickListener(v -> openLeaderboard(3));
-        otherCategoryButton2.setOnClickListener(v -> openLeaderboard(4));
+        historyButton.setOnClickListener(v -> openLeaderboard(2, "History"));
+        otherCategoryButton.setOnClickListener(v -> openLeaderboard(3, "Other Category"));
+        otherCategoryButton2.setOnClickListener(v -> openLeaderboard(4, "Other Category"));
 
     }
 
@@ -75,9 +75,10 @@ public class CategoryHighScoresActivity extends AppCompatActivity {
      * Starts the LeaderboardActivity and passes the selected category to it via an Intent.
      * @param id The category whose leaderboard is to be displayed. This value will be passed to LeaderboardActivity.
      */
-    private void openLeaderboard(long id) {  //TODO: need to create LeaderboardActivity.java
+    private void openLeaderboard(long id, String categoryName) {  //TODO: need to create LeaderboardActivity.java
         Intent intent = new Intent(CategoryHighScoresActivity.this, LeaderboardActivity.class);
         intent.putExtra("categoryId", id);
+        intent.putExtra("categoryName", categoryName);  // Pass the category name
         startActivity(intent);
     }
 

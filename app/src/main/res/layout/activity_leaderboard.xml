@@ -7,13 +7,27 @@
     tools:context=".LeaderboardActivity">
 
     <TextView
+        android:id="@+id/category_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp"
+        android:text="Category Leaderboard"
+        android:textSize="30sp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/leaderboard_text"
         android:layout_width="wrap_content"
         android:layout_height="150dp"
         android:text="Wecome to the Leaderboard"
         android:textSize="40sp"
         android:gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="200dp"
         android:layout_marginStart="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
