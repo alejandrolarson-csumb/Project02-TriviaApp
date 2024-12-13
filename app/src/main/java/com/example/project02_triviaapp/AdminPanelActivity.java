@@ -38,7 +38,7 @@ public class AdminPanelActivity extends AppCompatActivity {
         binding.adminPanelChangeUserPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(AdminUsersListActivity.AdminUsersListIntentFactory(getApplicationContext()));
+                startActivity(AdminChangePasswordActivity.AdminChangePasswordIntentFactory(getApplicationContext()));
             }
         });
     }

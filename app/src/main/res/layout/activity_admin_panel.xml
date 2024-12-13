@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/adminPanelIconImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginTop="50dp"
         android:contentDescription="@string/admin_wrench_icon"
         android:src="@drawable/adminwrench"

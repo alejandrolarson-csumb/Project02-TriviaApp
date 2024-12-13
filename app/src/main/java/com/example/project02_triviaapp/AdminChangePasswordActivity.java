@@ -3,6 +3,7 @@ package com.example.project02_triviaapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,13 @@ public class AdminChangePasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAdminChangePasswordBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        binding.adminChangeUserPasswordBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(AdminPanelActivity.AdminPanelIntentFactory(getApplicationContext()));
+            }
+        });
 
     }
 
