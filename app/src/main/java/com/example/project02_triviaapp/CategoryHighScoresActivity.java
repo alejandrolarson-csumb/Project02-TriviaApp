@@ -1,5 +1,6 @@
 package com.example.project02_triviaapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -58,6 +59,10 @@ public class CategoryHighScoresActivity extends AppCompatActivity {
         Intent intent = new Intent(CategoryHighScoresActivity.this, LeaderboardActivity.class);
         intent.putExtra("category", category);
         startActivity(intent);
+    }
+
+    public static Intent categoryHighScoresActivityIntentFactory(Context context) {
+        return new Intent(context, CategoryHighScoresActivity.class);
     }
 }
 

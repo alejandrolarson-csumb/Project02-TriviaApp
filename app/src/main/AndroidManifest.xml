@@ -12,6 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         tools:targetApi="31">
+        <activity android:name=".CategoryHighScoresActivity"
+                  android:exported="false"/>
         <activity
             android:name=".CategoryMenuActivity"
             android:exported="false" />
