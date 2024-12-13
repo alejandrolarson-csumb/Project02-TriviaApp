@@ -19,4 +19,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:text="Back"
+        android:textSize="15sp"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/backButtonLeaderboardMenu"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

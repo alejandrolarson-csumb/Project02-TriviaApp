@@ -3,6 +3,7 @@ package com.example.project02_triviaapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.project02_triviaapp.database.TriviaDatabase;
@@ -11,6 +12,8 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 import com.example.project02_triviaapp.database.ScoresDAO;
 import com.example.project02_triviaapp.database.entities.Scores;
+import com.example.project02_triviaapp.databinding.ActivityCategoryHighScoresBinding;
+import com.example.project02_triviaapp.databinding.ActivityLeaderboardBinding;
 
 import java.util.List;
 
@@ -25,6 +28,8 @@ import java.util.List;
 
 public class LeaderboardActivity extends AppCompatActivity {
 
+    ActivityLeaderboardBinding binding;
+
     private TextView leaderboardText;
 
     /**
@@ -38,7 +43,16 @@ public class LeaderboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leaderboard);
+        binding = ActivityLeaderboardBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        binding.backButtonLeaderboardMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = CategoryHighScoresActivity.categoryHighScoresActivityIntentFactory(getApplicationContext());
+                startActivity(intent);
+            }
+        });
 
         leaderboardText = findViewById(R.id.leaderboard_text);
 
@@ -70,7 +84,7 @@ public class LeaderboardActivity extends AppCompatActivity {
                     TriviaDatabase.class, "trivia_database").build();
             ScoresDAO scoresDAO = db.scoresDAO();
 
-           LiveData<List<Scores>> topScores = scoresDAO.getTopScoresForCategory(categoryId);
+           List<Scores> topScores = scoresDAO.getTopScoresForCategory(categoryId);
 
             // Update the UI with the top scores
             runOnUiThread(() -> {
