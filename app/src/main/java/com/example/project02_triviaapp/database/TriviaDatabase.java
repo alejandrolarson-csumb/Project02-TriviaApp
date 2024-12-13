@@ -119,6 +119,20 @@ public abstract class TriviaDatabase extends RoomDatabase {
                         "The Black Plague",
                         "The Spanish Flu,Smallpox,The HIV/AIDS pandemic");
                 questDao.insert(question);
+                question = new Question(historyID, "What was the first American state?",
+                        "Delaware",
+                        "New York,Louisiana,Connecticut");
+                questDao.insert(question);
+                question = new Question(historyID,
+                        "Which structure came down in 1989, unifying Germany once more?",
+                        "The Berlin Wall",
+                        "The Great Wall,The Soviet Wall,The Border Wall");
+                questDao.insert(question);
+                question = new Question(historyID,
+                        "Who has reigned the longest in the British monarchy?",
+                        "Queen Elizabeth II",
+                        "Queen Victoria,King Charles III, King William");
+                questDao.insert(question);
 
                 Scores scores = new Scores(testUserId, moviesID, 10); // change to testScores?
                 scoresDao.insert(scores);
